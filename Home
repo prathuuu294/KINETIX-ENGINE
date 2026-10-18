@@ -1,0 +1,1170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prathamesh Salunke | Luxury Web Architecture & CRM Studio (India)</title>
+
+  <!-- Google Fonts: Inter (Apple-style UI) & JetBrains Mono (Nothing-style Telemetry) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================
+       1. THEME VARIABLES & RESET
+       ========================================== */
+    :root {
+      --bg-dark: #070709;
+      --bg-card: rgba(255, 255, 255, 0.04);
+      --bg-card-hover: rgba(255, 255, 255, 0.08);
+      --border-light: rgba(255, 255, 255, 0.1);
+      --border-gold: rgba(212, 175, 55, 0.45);
+      --text-main: #f5f5f7;
+      --text-muted: #9496a1;
+      --gold: #d4af37;
+      --gold-light: #f3e5ab;
+      --accent-blue: #38bdf8;
+      --success: #22c55e;
+      --radius: 20px;
+      --transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      line-height: 1.6;
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 15% 10%, rgba(212, 175, 55, 0.08), transparent 35%),
+        radial-gradient(circle at 85% 30%, rgba(56, 189, 248, 0.06), transparent 35%);
+    }
+
+    /* Subtle Nothing-inspired dot grid background */
+    .dot-bg {
+      background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .mono {
+      font-family: 'JetBrains Mono', monospace;
+      letter-spacing: 0.05em;
+    }
+
+    /* ==========================================
+       2. NAVIGATION BAR (Apple Frosted Glass)
+       ========================================== */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(7, 7, 9, 0.75);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .nav-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 76px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      letter-spacing: -0.02em;
+      text-decoration: none;
+      color: var(--text-main);
+    }
+
+    .brand-mark {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--gold), #8a6d1b);
+      color: #000;
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+    }
+
+    .india-badge {
+      font-size: 0.7rem;
+      padding: 4px 10px;
+      border-radius: 99px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border-light);
+      color: var(--gold-light);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: var(--transition);
+    }
+
+    .nav-links a:hover {
+      color: var(--text-main);
+    }
+
+    .nav-actions {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    /* ==========================================
+       3. BUTTONS
+       ========================================== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border-radius: 99px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      text-decoration: none;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: var(--transition);
+    }
+
+    .btn-gold {
+      background: linear-gradient(135deg, var(--gold-light), var(--gold));
+      color: #050507;
+      box-shadow: 0 8px 25px rgba(212, 175, 55, 0.25);
+    }
+
+    .btn-gold:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(212, 175, 55, 0.4);
+    }
+
+    .btn-outline {
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-main);
+      border: 1px solid var(--border-light);
+    }
+
+    .btn-outline:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: var(--gold);
+    }
+
+    /* ==========================================
+       4. HERO SECTION
+       ========================================== */
+    .hero {
+      padding: 100px 0 80px;
+      text-align: center;
+    }
+
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      border-radius: 99px;
+      background: rgba(212, 175, 55, 0.1);
+      border: 1px solid var(--border-gold);
+      color: var(--gold-light);
+      font-size: 0.78rem;
+      margin-bottom: 24px;
+    }
+
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--success);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--success);
+    }
+
+    .hero h1 {
+      font-size: clamp(2.4rem, 5.5vw, 4.4rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      max-width: 900px;
+      margin: 0 auto 24px;
+      background: linear-gradient(180deg, #ffffff 30%, #9496a1 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      color: var(--text-muted);
+      font-size: 1.15rem;
+      max-width: 680px;
+      margin: 0 auto 36px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 64px;
+    }
+
+    .hero-metrics {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      padding: 28px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius);
+      backdrop-filter: blur(12px);
+    }
+
+    .metric-box h3 {
+      font-size: 1.8rem;
+      color: var(--gold-light);
+      font-weight: 700;
+    }
+
+    .metric-box p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin: 4px 0 0;
+    }
+
+    /* ==========================================
+       5. SECTION HEADINGS & BENTO GRID
+       ========================================== */
+    section {
+      padding: 80px 0;
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto 56px;
+    }
+
+    .section-tag {
+      color: var(--gold);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .section-header h2 {
+      font-size: clamp(1.8rem, 3.5vw, 2.75rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 14px;
+    }
+
+    .section-header p {
+      color: var(--text-muted);
+    }
+
+    .bento-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 24px;
+    }
+
+    .bento-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius);
+      padding: 32px;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .bento-card:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--border-gold);
+      transform: translateY(-4px);
+    }
+
+    .card-code {
+      font-size: 0.75rem;
+      color: var(--gold);
+      margin-bottom: 14px;
+      display: inline-block;
+      padding: 4px 10px;
+      background: rgba(212, 175, 55, 0.1);
+      border-radius: 6px;
+    }
+
+    .bento-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 12px;
+    }
+
+    .bento-card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 20px;
+    }
+
+    .feature-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .feature-tags span {
+      font-size: 0.75rem;
+      padding: 4px 10px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-main);
+      border: 1px solid var(--border-light);
+    }
+
+    /* ==========================================
+       6. INTERACTIVE SYSTEM PREVIEW
+       ========================================== */
+    .preview-box {
+      background: rgba(15, 15, 20, 0.9);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
+    }
+
+    .preview-tabs {
+      display: flex;
+      gap: 10px;
+      padding: 16px 24px;
+      background: rgba(255, 255, 255, 0.03);
+      border-bottom: 1px solid var(--border-light);
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      padding: 10px 18px;
+      border-radius: 10px;
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.85rem;
+      transition: var(--transition);
+    }
+
+    .tab-btn.active {
+      background: rgba(212, 175, 55, 0.15);
+      color: var(--gold-light);
+      border-color: var(--border-gold);
+    }
+
+    .preview-content {
+      padding: 36px;
+      display: none;
+    }
+
+    .preview-content.active {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+    }
+
+    .mock-widget {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-light);
+      padding: 24px;
+      border-radius: 14px;
+    }
+
+    .mock-widget h4 {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .mock-widget .big-val {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 8px;
+    }
+
+    /* ==========================================
+       7. DEVELOPER PROFILE SECTION
+       ========================================== */
+    .dev-card {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 40px;
+      background: linear-gradient(145deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01));
+      border: 1px solid var(--border-gold);
+      border-radius: var(--radius);
+      padding: 48px;
+      align-items: center;
+    }
+
+    .dev-role {
+      color: var(--gold);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .dev-card h2 {
+      font-size: 2.2rem;
+      margin-bottom: 16px;
+    }
+
+    .dev-card p {
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+
+    .skill-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .skill-box {
+      background: rgba(0, 0, 0, 0.45);
+      border: 1px solid var(--border-light);
+      padding: 20px;
+      border-radius: 14px;
+    }
+
+    .skill-box h4 {
+      color: var(--gold-light);
+      font-size: 1.1rem;
+      margin-bottom: 6px;
+    }
+
+    .skill-box p {
+      font-size: 0.82rem;
+      margin: 0;
+    }
+
+    /* ==========================================
+       8. PRICING PLANS (INDIA EXCLUSIVE - INR)
+       ========================================== */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+    }
+
+    .price-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius);
+      padding: 36px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: var(--transition);
+    }
+
+    .price-card.featured {
+      border-color: var(--gold);
+      background: linear-gradient(180deg, rgba(212, 175, 55, 0.09) 0%, rgba(255, 255, 255, 0.02) 100%);
+      transform: scale(1.02);
+    }
+
+    .price-amount {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin: 16px 0 8px;
+      color: var(--text-main);
+    }
+
+    .price-amount span {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      font-weight: 400;
+    }
+
+    .price-list {
+      list-style: none;
+      margin: 24px 0 32px;
+    }
+
+    .price-list li {
+      margin-bottom: 12px;
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .price-list li::before {
+      content: "✓";
+      color: var(--gold);
+      font-weight: bold;
+    }
+
+    /* ==========================================
+       9. BOOKING FORM & ADMIN CRM MODAL
+       ========================================== */
+    .form-box {
+      max-width: 720px;
+      margin: 0 auto;
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      padding: 40px;
+      border-radius: var(--radius);
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 14px;
+      border-radius: 12px;
+      border: 1px solid var(--border-light);
+      background: rgba(0, 0, 0, 0.5);
+      color: var(--text-main);
+      font-family: inherit;
+      font-size: 0.95rem;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: var(--gold);
+    }
+
+    /* Modal for Built-In Business CRM */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(10px);
+      display: none;
+      place-items: center;
+      z-index: 200;
+      padding: 20px;
+    }
+
+    .modal-overlay.open {
+      display: grid;
+    }
+
+    .modal-window {
+      background: #101015;
+      border: 1px solid var(--border-gold);
+      border-radius: var(--radius);
+      width: 100%;
+      max-width: 800px;
+      padding: 32px;
+      max-height: 85vh;
+      overflow-y: auto;
+    }
+
+    .lead-item {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-light);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    footer {
+      border-top: 1px solid var(--border-light);
+      padding: 40px 0;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .dev-card, .form-grid { grid-template-columns: 1fr; }
+      .price-card.featured { transform: none; }
+    }
+  </style>
+</head>
+<body class="dot-bg">
+
+  <!-- ==========================================
+       1. NAVIGATION BAR
+       ========================================== -->
+  <header>
+    <div class="container nav-bar">
+      <a href="#" class="brand">
+        <div class="brand-mark">PS</div>
+        <span>SALUNKE STUDIO</span>
+        <span class="india-badge mono">🇮🇳 INDIA EXCLUSIVE</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="#features">Capabilities</a></li>
+        <li><a href="#preview">Live Systems</a></li>
+        <li><a href="#developer">Architect</a></li>
+        <li><a href="#pricing">Plans (₹)</a></li>
+        <li><a href="#commission">Book Project</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <button class="btn btn-outline mono" onclick="toggleCRM()">
+          Admin CRM (<span id="leadCount">0</span>)
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==========================================
+       2. HERO SECTION
+       ========================================== -->
+  <section class="hero container">
+    <div class="hero-pill mono">
+      <span class="pulse-dot"></span>
+      EXCLUSIVELY FOR INDIAN LUXURY BRANDS & ENTERPRISES
+    </div>
+
+    <h1>Flagship Web Architecture & Automated Business Engines.</h1>
+
+    <p>
+      Engineered with the design precision of Apple, the raw telemetry aesthetics of Nothing, and enterprise CRM power. We build ultra-luxury websites, custom client portals, and automated business engines for India’s top businesses.
+    </p>
+
+    <div class="hero-buttons">
+      <a href="#pricing" class="btn btn-gold">Explore Investment Plans (₹)</a>
+      <a href="#preview" class="btn btn-outline">Test Interactive Dashboards</a>
+    </div>
+
+    <div class="hero-metrics">
+      <div class="metric-box">
+        <h3 class="mono">99.9%</h3>
+        <p>Uptime & High-Speed Architecture</p>
+      </div>
+      <div class="metric-box">
+        <h3 class="mono">🇮🇳 Pan-India</h3>
+        <p>Mumbai • Delhi NCR • Bengaluru • Pune</p>
+      </div>
+      <div class="metric-box">
+        <h3 class="mono">UPI & GST</h3>
+        <p>Razorpay & Indian Billing Ready</p>
+      </div>
+      <div class="metric-box">
+        <h3 class="mono">24/7</h3>
+        <p>Automated Python & Java Engines</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       3. CORE CAPABILITIES BENTO GRID
+       ========================================== -->
+  <section id="features" class="container">
+    <div class="section-header">
+      <span class="section-tag mono">// 01. ENTERPRISE CAPABILITIES</span>
+      <h2>Built Like World-Class Tech Giants.</h2>
+      <p>Every platform is custom-engineered from scratch to automate your operations and elevate your brand authority in the Indian market.</p>
+    </div>
+
+    <div class="bento-grid">
+      <!-- Feature 1 -->
+      <div class="bento-card">
+        <span class="card-code mono">SYS_01 // CUSTOM FUNCTIONS</span>
+        <h3>Custom Function Building</h3>
+        <p>Tailor-made calculators, dynamic price estimators, appointment booking flows, and business-specific logic built with Java & Python.</p>
+        <div class="feature-tags">
+          <span>Dynamic Pricing</span>
+          <span>Custom Workflows</span>
+          <span>API Integrations</span>
+        </div>
+      </div>
+
+      <!-- Feature 2 -->
+      <div class="bento-card">
+        <span class="card-code mono">SYS_02 // LUXURY UI/UX</span>
+        <h3>Premium Interface Designing</h3>
+        <p>Frosted-glass surfaces, fluid micro-animations, and ultra-responsive layouts inspired by Apple, Samsung, and Nothing OS.</p>
+        <div class="feature-tags">
+          <span>60FPS Animations</span>
+          <span>Dark Titanium UI</span>
+          <span>Mobile First</span>
+        </div>
+      </div>
+
+      <!-- Feature 3 -->
+      <div class="bento-card">
+        <span class="card-code mono">SYS_03 // INTERACTIVE ENGINES</span>
+        <h3>Interactive Client Engines</h3>
+        <p>Real-time product customizers, interactive service selectors, and instant quotation tools that turn website visitors into paying clients.</p>
+        <div class="feature-tags">
+          <span>Live Configurators</span>
+          <span>Instant Quotes</span>
+          <span>High Conversion</span>
+        </div>
+      </div>
+
+      <!-- Feature 4 -->
+      <div class="bento-card">
+        <span class="card-code mono">SYS_04 // AUTOMATION</span>
+        <h3>Automated Engines & Tools</h3>
+        <p>Python-powered automation for instant GST invoice generation, WhatsApp lead alerts, automated email follow-ups, and report generation.</p>
+        <div class="feature-tags">
+          <span>Python Automation</span>
+          <span>Auto GST Invoices</span>
+          <span>WhatsApp Alerts</span>
+        </div>
+      </div>
+
+      <!-- Feature 5 -->
+      <div class="bento-card">
+        <span class="card-code mono">SYS_05 // SECURITY & AUTH</span>
+        <h3>CRM & Multi-Role Login Panels</h3>
+        <p>Secure authentication portals with role-based access for Business Owners, Staff Members, and VIP Customers.</p>
+        <div class="feature-tags">
+          <span>Encrypted Login</span>
+          <span>OTP / Email Auth</span>
+          <span>Role Management</span>
+        </div>
+      </div>
+
+      <!-- Feature 6 -->
+      <div class="bento-card">
+        <span class="card-code mono">SYS_06 // COMMAND CENTER</span>
+        <h3>Admin & Customer Dashboards</h3>
+        <p>Dedicated dashboards where owners track ₹ revenue and leads, while customers log in to track orders, documents, and invoices.</p>
+        <div class="feature-tags">
+          <span>Admin Command Panel</span>
+          <span>Customer Portal</span>
+          <span>Live Analytics</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       4. INTERACTIVE SYSTEM PREVIEW
+       ========================================== -->
+  <section id="preview" class="container">
+    <div class="section-header">
+      <span class="section-tag mono">// 02. LIVE ARCHITECTURE SANDBOX</span>
+      <h2>Preview Your Future Control Center.</h2>
+      <p>Click through the tabs below to experience the dashboards and automated tools we build for your business.</p>
+    </div>
+
+    <div class="preview-box">
+      <div class="preview-tabs">
+        <button class="tab-btn active" onclick="switchTab('admin', this)">1. Admin CRM & Revenue Panel</button>
+        <button class="tab-btn" onclick="switchTab('customer', this)">2. VIP Customer Login Dashboard</button>
+        <button class="tab-btn" onclick="switchTab('automation', this)">3. Automated Python & Java Engine</button>
+      </div>
+
+      <!-- Tab 1: Admin Dashboard -->
+      <div id="tab-admin" class="preview-content active">
+        <div class="mock-widget">
+          <h4>MONTHLY REVENUE (INR)</h4>
+          <div class="big-val mono">₹14,85,000</div>
+          <span style="color: var(--success); font-size: 0.85rem;">▲ +28.4% vs last month (UPI / Razorpay)</span>
+        </div>
+        <div class="mock-widget">
+          <h4>ACTIVE CLIENT LEADS</h4>
+          <div class="big-val mono">42 Verified</div>
+          <span style="color: var(--gold-light); font-size: 0.85rem;">Mumbai, Pune, Bengaluru & Delhi NCR</span>
+        </div>
+        <div class="mock-widget">
+          <h4>ADMIN QUICK CONTROLS</h4>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px;">
+            Manage staff permissions, approve client quotes, and export GST reports in one click.
+          </p>
+          <span class="india-badge mono">ROLE: SUPER_ADMIN</span>
+        </div>
+      </div>
+
+      <!-- Tab 2: Customer Dashboard -->
+      <div id="tab-customer" class="preview-content">
+        <div class="mock-widget">
+          <h4>CLIENT PORTAL STATUS</h4>
+          <div class="big-val mono">Project: 85%</div>
+          <span style="color: var(--accent-blue); font-size: 0.85rem;">Stage: Custom CRM Integration</span>
+        </div>
+        <div class="mock-widget">
+          <h4>INVOICES & PAYMENTS</h4>
+          <div class="big-val mono">GST Paid ✓</div>
+          <span style="color: var(--text-muted); font-size: 0.85rem;">Download Tax Invoices & Receipts</span>
+        </div>
+        <div class="mock-widget">
+          <h4>VIP SUPPORT DESK</h4>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px;">
+            Dedicated 1-on-1 priority ticket channel and live milestone approvals for your customers.
+          </p>
+          <span class="india-badge mono">CLIENT VAULT ACTIVE</span>
+        </div>
+      </div>
+
+      <!-- Tab 3: Automation Engine -->
+      <div id="tab-automation" class="preview-content">
+        <div class="mock-widget">
+          <h4>PYTHON AUTOMATION DAEMON</h4>
+          <div class="big-val mono" style="color: var(--success);">ONLINE</div>
+          <span style="color: var(--text-muted); font-size: 0.85rem;">Auto-capturing leads & sending alerts</span>
+        </div>
+        <div class="mock-widget">
+          <h4>JAVA CORE ENGINE</h4>
+          <div class="big-val mono">14ms Latency</div>
+          <span style="color: var(--gold-light); font-size: 0.85rem;">Enterprise-grade security & logic</span>
+        </div>
+        <div class="mock-widget">
+          <h4>HOURS SAVED WEEKLY</h4>
+          <div class="big-val mono">32+ Hours</div>
+          <span style="color: var(--text-muted); font-size: 0.85rem;">Replaces manual spreadsheet work</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       5. DEVELOPER PROFILE (PRATHAMESH SALUNKE)
+       ========================================== -->
+  <section id="developer" class="container">
+    <div class="dev-card">
+      <div>
+        <span class="dev-role mono">// PRINCIPAL ARCHITECT & PROFESSIONAL WEB DEVELOPER</span>
+        <h2>Prathamesh Sanjay Salunke</h2>
+        <p>
+          Based in <strong>Mumbai, Maharashtra</strong>, I design and engineer high-converting luxury websites, custom CRM portals, and automated software ecosystems exclusively for ambitious Indian businesses and enterprise brands.
+        </p>
+        <p>
+          By combining clean frontend aesthetics with powerful backend logic, every platform is built to look like a global flagship product while running your daily business operations on autopilot.
+        </p>
+        <a href="#commission" class="btn btn-gold">Commission Your Website</a>
+      </div>
+
+      <div class="skill-grid">
+        <div class="skill-box">
+          <h4 class="mono">Java</h4>
+          <p>Enterprise Backend Logic, Secure Authentication & Scalable Systems.</p>
+        </div>
+        <div class="skill-box">
+          <h4 class="mono">Python</h4>
+          <p>Automated Business Engines, Data Tools, Dashboards & APIs.</p>
+        </div>
+        <div class="skill-box">
+          <h4 class="mono">HTML5</h4>
+          <p>Semantic, SEO-Optimized & High-Speed Flagship Web Structure.</p>
+        </div>
+        <div class="skill-box">
+          <h4 class="mono">CSS3</h4>
+          <p>Luxury Glassmorphism, Responsive Layouts & 60FPS Motion Design.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       6. PRICING PLANS (INDIA EXCLUSIVE - INR)
+       ========================================== -->
+  <section id="pricing" class="container">
+    <div class="section-header">
+      <span class="section-tag mono">// 03. TRANSPARENT INVESTMENT TIERS (INDIA)</span>
+      <h2>Choose Your Flagship Architecture.</h2>
+      <p>Tailored exclusively for Indian businesses. All plans include mobile responsiveness, Indian payment gateway readiness, and dedicated support.</p>
+    </div>
+
+    <div class="pricing-grid">
+      <!-- Plan 1 -->
+      <div class="price-card">
+        <div>
+          <span class="card-code mono">TIER 01 // EXECUTIVE LAUNCH</span>
+          <h3>Luxury Brand Website</h3>
+          <div class="price-amount mono">₹29,999 <span>/ one-time</span></div>
+          <p style="color: var(--text-muted); font-size: 0.9rem;">Ideal for premium clinics, studios, agencies, and luxury retail brands in India.</p>
+          <ul class="price-list">
+            <li>Apple / Nothing Inspired Custom UI Design</li>
+            <li>Up to 6 Ultra-Responsive Flagship Pages</li>
+            <li>Interactive Service & Pricing Estimator</li>
+            <li>WhatsApp Business & Lead Capture Integration</li>
+            <li>SEO & High-Speed Performance Optimization</li>
+          </ul>
+        </div>
+        <button class="btn btn-outline" onclick="selectPlan('Luxury Brand Website (₹29,999)')">Select Executive Plan</button>
+      </div>
+
+      <!-- Plan 2 (Featured) -->
+      <div class="price-card featured">
+        <div>
+          <span class="card-code mono">TIER 02 // MOST POPULAR IN INDIA</span>
+          <h3>Business CRM & Portal Suite</h3>
+          <div class="price-amount mono">₹64,999 <span>/ one-time</span></div>
+          <p style="color: var(--text-muted); font-size: 0.9rem;">Complete website + Admin CRM & Customer Login Dashboard to manage your business.</p>
+          <ul class="price-list">
+            <li>Everything in Luxury Brand Website</li>
+            <li>Secure Admin CRM & Lead Management Panel</li>
+            <li>Customer Login Portal & Order/Project Tracker</li>
+            <li>Python Automated Invoice & Email Alerts</li>
+            <li>Razorpay / UPI Payment Gateway Integration</li>
+          </ul>
+        </div>
+        <button class="btn btn-gold" onclick="selectPlan('Business CRM & Portal Suite (₹64,999)')">Select CRM Suite</button>
+      </div>
+
+      <!-- Plan 3 -->
+      <div class="price-card">
+        <div>
+          <span class="card-code mono">TIER 03 // BESPOKE ENTERPRISE</span>
+          <h3>Custom Flagship Ecosystem</h3>
+          <div class="price-amount mono">₹1,25,000+ <span>/ custom</span></div>
+          <p style="color: var(--text-muted); font-size: 0.9rem;">Full-scale custom web application with bespoke Java & Python engines.</p>
+          <ul class="price-list">
+            <li>Everything in Business CRM & Portal Suite</li>
+            <li>Custom Function & Interactive Engine Building</li>
+            <li>Multi-Role Portals (Admin, Staff, VIP Client)</li>
+            <li>Full Python & Java Backend Automation</li>
+            <li>Priority 1-on-1 Architecture Support (IST)</li>
+          </ul>
+        </div>
+        <button class="btn btn-outline" onclick="selectPlan('Custom Flagship Ecosystem (₹1,25,000+)')">Request Bespoke Scope</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       7. COMMISSION / PROJECT INQUIRY FORM
+       ========================================== -->
+  <section id="commission" class="container">
+    <div class="section-header">
+      <span class="section-tag mono">// 04. START YOUR PROJECT</span>
+      <h2>Commission Your Digital Flagship.</h2>
+      <p>Submit your business details below. Your inquiry goes directly into our Studio CRM for a priority consultation within 24 hours (IST).</p>
+    </div>
+
+    <form class="form-box" onsubmit="submitLead(event)">
+      <div class="form-grid">
+        <div>
+          <label>Your Full Name *</label>
+          <input type="text" id="clientName" placeholder="e.g., Rohan Mehta" required />
+        </div>
+        <div>
+          <label>Business / Brand Name *</label>
+          <input type="text" id="businessName" placeholder="e.g., Aura Luxury Ventures" required />
+        </div>
+      </div>
+
+      <div class="form-grid">
+        <div>
+          <label>Phone / WhatsApp (+91) *</label>
+          <input type="tel" id="clientPhone" placeholder="+91 98765 43210" required />
+        </div>
+        <div>
+          <label>Indian City / Location *</label>
+          <input type="text" id="clientCity" placeholder="e.g., Mumbai, Maharashtra" required />
+        </div>
+      </div>
+
+      <div style="margin-bottom: 20px;">
+        <label>Selected Investment Plan *</label>
+        <select id="selectedPlan">
+          <option value="Luxury Brand Website (₹29,999)">Tier 01 — Luxury Brand Website (₹29,999)</option>
+          <option value="Business CRM & Portal Suite (₹64,999)" selected>Tier 02 — Business CRM & Portal Suite (₹64,999)</option>
+          <option value="Custom Flagship Ecosystem (₹1,25,000+)">Tier 03 — Custom Flagship Ecosystem (₹1,25,000+)</option>
+        </select>
+      </div>
+
+      <div style="margin-bottom: 24px;">
+        <label>Required Features (Custom Functions, Login Panels, Automation, etc.)</label>
+        <textarea id="clientNotes" rows="4" placeholder="Tell us about your business goals, custom functions, or dashboard requirements..."></textarea>
+      </div>
+
+      <button type="submit" class="btn btn-gold" style="width: 100%;">
+        Submit Project Inquiry (India Only)
+      </button>
+    </form>
+  </section>
+
+  <!-- ==========================================
+       8. BUILT-IN ADMIN CRM MODAL (MANAGE LEADS)
+       ========================================== -->
+  <div id="crmModal" class="modal-overlay">
+    <div class="modal-window">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+        <div>
+          <span class="section-tag mono" style="margin: 0;">// SALUNKE STUDIO ADMIN PANEL</span>
+          <h3>Client Inquiries & Lead CRM</h3>
+        </div>
+        <button class="btn btn-outline" onclick="toggleCRM()">Close ✕</button>
+      </div>
+
+      <div id="leadsContainer"></div>
+
+      <div style="margin-top: 20px; display: flex; justify-content: space-between;">
+        <button class="btn btn-outline" onclick="clearLeads()">Clear All Demo Leads</button>
+        <span class="mono" style="font-size: 0.8rem; color: var(--text-muted); align-self: center;">
+          Stored locally in browser • Ready for Backend API
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       9. FOOTER
+       ========================================== -->
+  <footer>
+    <div class="container">
+      <p class="mono" style="color: var(--gold-light); margin-bottom: 8px;">
+        SALUNKE STUDIO // LUXURY WEB ARCHITECTURE & AUTOMATED SYSTEMS
+      </p>
+      <p>
+        Architected by <strong>Prathamesh Sanjay Salunke</strong> (Java • Python • HTML5 • CSS3) | Exclusively Serving India 🇮🇳
+      </p>
+    </div>
+  </footer>
+
+  <!-- ==========================================
+       10. CLEAN VANILLA JAVASCRIPT
+       ========================================== -->
+  <script>
+    // 1. Switch Interactive Sandbox Tabs
+    function switchTab(tabName, btnElement) {
+      document.querySelectorAll('.preview-content').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+
+      document.getElementById('tab-' + tabName).classList.add('active');
+      btnElement.classList.add('active');
+    }
+
+    // 2. Pre-select Plan & Scroll to Form
+    function selectPlan(planTitle) {
+      const select = document.getElementById('selectedPlan');
+      select.value = planTitle;
+      document.getElementById('commission').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // 3. Manage Business Leads in LocalStorage (Built-In Admin CRM)
+    const STORAGE_KEY = 'salunke_studio_india_leads';
+
+    function getLeads() {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) {
+        // Default sample Indian lead so CRM never looks empty on first open
+        const sample = [{
+          name: "Vikramaditya Singhania",
+          business: "Singhania Luxe Estates",
+          phone: "+91 98201 11223",
+          city: "Mumbai, MH",
+          plan: "Business CRM & Portal Suite (₹64,999)",
+          notes: "Need custom property ROI calculator + VIP buyer login portal.",
+          date: "Sample Lead"
+        }];
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(sample));
+        return sample;
+      }
+      return JSON.parse(raw);
+    }
+
+    function submitLead(event) {
+      event.preventDefault();
+      const newLead = {
+        name: document.getElementById('clientName').value,
+        business: document.getElementById('businessName').value,
+        phone: document.getElementById('clientPhone').value,
+        city: document.getElementById('clientCity').value,
+        plan: document.getElementById('selectedPlan').value,
+        notes: document.getElementById('clientNotes').value || "Standard deployment requested.",
+        date: new Date().toLocaleDateString('en-IN')
+      };
+
+      const leads = getLeads();
+      leads.unshift(newLead);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(leads));
+
+      event.target.reset();
+      renderLeads();
+      toggleCRM(); // Open CRM modal immediately to show the saved inquiry
+    }
+
+    function renderLeads() {
+      const leads = getLeads();
+      document.getElementById('leadCount').innerText = leads.length;
+      const container = document.getElementById('leadsContainer');
+
+      if (leads.length === 0) {
+        container.innerHTML = `<p style="color: var(--text-muted);">No inquiries yet. Submit the form on the page to test your CRM.</p>`;
+        return;
+      }
+
+      container.innerHTML = leads.map(lead => `
+        <div class="lead-item">
+          <div>
+            <strong style="font-size: 1.05rem; color: var(--gold-light);">${lead.business}</strong>
+            <span class="india-badge mono" style="margin-left: 8px;">${lead.city}</span>
+            <p style="font-size: 0.88rem; color: var(--text-main); margin-top: 4px;">
+              Client: ${lead.name} • Phone: <span class="mono">${lead.phone}</span>
+            </p>
+            <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 4px;">
+              Note: ${lead.notes}
+            </p>
+          </div>
+          <div style="text-align: right;">
+            <span class="card-code mono">${lead.plan}</span>
+            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">${lead.date}</div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function toggleCRM() {
+      document.getElementById('crmModal').classList.toggle('open');
+      renderLeads();
+    }
+
+    function clearLeads() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify([]));
+      renderLeads();
+    }
+
+    // Initialize Lead Counter on Load
+    renderLeads();
+  </script>
+</body>
+</html>
