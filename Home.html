@@ -1,1170 +1,1360 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark scroll-smooth">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Prathamesh Salunke | Luxury Web Architecture & CRM Studio (India)</title>
+  <title>KINETIX ENGINE — Bespoke Digital Architecture & Enterprise Systems</title>
+  <meta name="description" content="KINETIX ENGINE by Prathamesh Sanjay Salunke. Bespoke web architecture, custom Java & Python automation engines, interactive configurators, and executive CRM portals." />
 
-  <!-- Google Fonts: Inter (Apple-style UI) & JetBrains Mono (Nothing-style Telemetry) -->
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            obsidian: '#050507',
+            charcoal: '#0c0d12',
+            surface: '#12141c',
+            gold: {
+              DEFAULT: '#d4af37',
+              light: '#f3e5ab',
+              dark: '#997a15'
+            },
+            kinetic: {
+              DEFAULT: '#38bdf8',
+              glow: '#0284c7'
+            }
+          },
+          fontFamily: {
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+            display: ['Space Grotesk', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
 
   <style>
-    /* ==========================================
-       1. THEME VARIABLES & RESET
-       ========================================== */
     :root {
-      --bg-dark: #070709;
-      --bg-card: rgba(255, 255, 255, 0.04);
-      --bg-card-hover: rgba(255, 255, 255, 0.08);
-      --border-light: rgba(255, 255, 255, 0.1);
-      --border-gold: rgba(212, 175, 55, 0.45);
-      --text-main: #f5f5f7;
-      --text-muted: #9496a1;
-      --gold: #d4af37;
-      --gold-light: #f3e5ab;
-      --accent-blue: #38bdf8;
-      --success: #22c55e;
-      --radius: 20px;
-      --transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      color-scheme: dark;
     }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      scroll-behavior: smooth;
-    }
-
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background-color: var(--bg-dark);
-      color: var(--text-main);
-      line-height: 1.6;
+      background-color: #050507;
+      color: #f4f4f6;
       overflow-x: hidden;
-      background-image: 
-        radial-gradient(circle at 15% 10%, rgba(212, 175, 55, 0.08), transparent 35%),
-        radial-gradient(circle at 85% 30%, rgba(56, 189, 248, 0.06), transparent 35%);
     }
-
-    /* Subtle Nothing-inspired dot grid background */
-    .dot-bg {
-      background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+    /* Subtle Technical Dot Matrix Grid */
+    .bg-dot-matrix {
+      background-image: radial-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px);
       background-size: 24px 24px;
     }
-
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 24px;
+    /* Frosted Acrylic Glass */
+    .glass-panel {
+      background: rgba(18, 20, 28, 0.65);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
     }
-
-    .mono {
-      font-family: 'JetBrains Mono', monospace;
-      letter-spacing: 0.05em;
+    .glass-panel-hover {
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
     }
-
-    /* ==========================================
-       2. NAVIGATION BAR (Apple Frosted Glass)
-       ========================================== */
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(7, 7, 9, 0.75);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--border-light);
+    .glass-panel-hover:hover {
+      border-color: rgba(212, 175, 55, 0.4);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 45px -15px rgba(212, 175, 55, 0.12);
     }
-
-    .nav-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      height: 76px;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-weight: 700;
-      font-size: 1.1rem;
-      letter-spacing: -0.02em;
-      text-decoration: none;
-      color: var(--text-main);
-    }
-
-    .brand-mark {
-      width: 34px;
-      height: 34px;
-      border-radius: 10px;
-      background: linear-gradient(135deg, var(--gold), #8a6d1b);
-      color: #000;
-      display: grid;
-      place-items: center;
-      font-weight: 800;
-    }
-
-    .india-badge {
-      font-size: 0.7rem;
-      padding: 4px 10px;
-      border-radius: 99px;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid var(--border-light);
-      color: var(--gold-light);
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 28px;
-      list-style: none;
-    }
-
-    .nav-links a {
-      color: var(--text-muted);
-      text-decoration: none;
-      font-size: 0.9rem;
-      font-weight: 500;
-      transition: var(--transition);
-    }
-
-    .nav-links a:hover {
-      color: var(--text-main);
-    }
-
-    .nav-actions {
-      display: flex;
-      gap: 12px;
-      align-items: center;
-    }
-
-    /* ==========================================
-       3. BUTTONS
-       ========================================== */
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 12px 24px;
-      border-radius: 99px;
-      font-weight: 600;
-      font-size: 0.9rem;
-      text-decoration: none;
-      cursor: pointer;
-      border: 1px solid transparent;
-      transition: var(--transition);
-    }
-
-    .btn-gold {
-      background: linear-gradient(135deg, var(--gold-light), var(--gold));
-      color: #050507;
-      box-shadow: 0 8px 25px rgba(212, 175, 55, 0.25);
-    }
-
-    .btn-gold:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 12px 30px rgba(212, 175, 55, 0.4);
-    }
-
-    .btn-outline {
-      background: rgba(255, 255, 255, 0.04);
-      color: var(--text-main);
-      border: 1px solid var(--border-light);
-    }
-
-    .btn-outline:hover {
-      background: rgba(255, 255, 255, 0.1);
-      border-color: var(--gold);
-    }
-
-    /* ==========================================
-       4. HERO SECTION
-       ========================================== */
-    .hero {
-      padding: 100px 0 80px;
-      text-align: center;
-    }
-
-    .hero-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 6px 16px;
-      border-radius: 99px;
-      background: rgba(212, 175, 55, 0.1);
-      border: 1px solid var(--border-gold);
-      color: var(--gold-light);
-      font-size: 0.78rem;
-      margin-bottom: 24px;
-    }
-
-    .pulse-dot {
-      width: 8px;
-      height: 8px;
-      background: var(--success);
-      border-radius: 50%;
-      box-shadow: 0 0 10px var(--success);
-    }
-
-    .hero h1 {
-      font-size: clamp(2.4rem, 5.5vw, 4.4rem);
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      line-height: 1.1;
-      max-width: 900px;
-      margin: 0 auto 24px;
-      background: linear-gradient(180deg, #ffffff 30%, #9496a1 100%);
+    /* Metallic Gradients */
+    .text-gradient-gold {
+      background: linear-gradient(135deg, #ffffff 0%, #f3e5ab 45%, #d4af37 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
-
-    .hero p {
-      color: var(--text-muted);
-      font-size: 1.15rem;
-      max-width: 680px;
-      margin: 0 auto 36px;
+    .text-gradient-titanium {
+      background: linear-gradient(180deg, #ffffff 0%, rgba(255, 255, 255, 0.55) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
-
-    .hero-buttons {
-      display: flex;
-      justify-content: center;
-      gap: 16px;
-      flex-wrap: wrap;
-      margin-bottom: 64px;
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
     }
-
-    .hero-metrics {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 20px;
-      padding: 28px;
-      background: var(--bg-card);
-      border: 1px solid var(--border-light);
-      border-radius: var(--radius);
-      backdrop-filter: blur(12px);
+    ::-webkit-scrollbar-track {
+      background: #050507;
     }
-
-    .metric-box h3 {
-      font-size: 1.8rem;
-      color: var(--gold-light);
-      font-weight: 700;
+    ::-webkit-scrollbar-thumb {
+      background: #1f2430;
+      border-radius: 4px;
     }
-
-    .metric-box p {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      margin: 4px 0 0;
+    ::-webkit-scrollbar-thumb:hover {
+      background: #d4af37;
     }
-
-    /* ==========================================
-       5. SECTION HEADINGS & BENTO GRID
-       ========================================== */
-    section {
-      padding: 80px 0;
+    /* Pulse & Telemetry Animations */
+    @keyframes pulse-slow {
+      0%, 100% { opacity: 0.35; transform: scale(1); }
+      50% { opacity: 0.65; transform: scale(1.06); }
     }
-
-    .section-header {
-      text-align: center;
-      max-width: 680px;
-      margin: 0 auto 56px;
+    .animate-glow {
+      animation: pulse-slow 8s infinite ease-in-out;
     }
-
-    .section-tag {
-      color: var(--gold);
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      margin-bottom: 10px;
-      display: block;
-    }
-
-    .section-header h2 {
-      font-size: clamp(1.8rem, 3.5vw, 2.75rem);
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      margin-bottom: 14px;
-    }
-
-    .section-header p {
-      color: var(--text-muted);
-    }
-
-    .bento-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-      gap: 24px;
-    }
-
-    .bento-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-light);
-      border-radius: var(--radius);
-      padding: 32px;
-      transition: var(--transition);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .bento-card:hover {
-      background: var(--bg-card-hover);
-      border-color: var(--border-gold);
-      transform: translateY(-4px);
-    }
-
-    .card-code {
-      font-size: 0.75rem;
-      color: var(--gold);
-      margin-bottom: 14px;
-      display: inline-block;
-      padding: 4px 10px;
-      background: rgba(212, 175, 55, 0.1);
-      border-radius: 6px;
-    }
-
-    .bento-card h3 {
-      font-size: 1.3rem;
-      margin-bottom: 12px;
-    }
-
-    .bento-card p {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-      margin-bottom: 20px;
-    }
-
-    .feature-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .feature-tags span {
-      font-size: 0.75rem;
-      padding: 4px 10px;
-      border-radius: 6px;
-      background: rgba(255, 255, 255, 0.05);
-      color: var(--text-main);
-      border: 1px solid var(--border-light);
-    }
-
-    /* ==========================================
-       6. INTERACTIVE SYSTEM PREVIEW
-       ========================================== */
-    .preview-box {
-      background: rgba(15, 15, 20, 0.9);
-      border: 1px solid var(--border-light);
-      border-radius: var(--radius);
-      overflow: hidden;
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
-    }
-
-    .preview-tabs {
-      display: flex;
-      gap: 10px;
-      padding: 16px 24px;
-      background: rgba(255, 255, 255, 0.03);
-      border-bottom: 1px solid var(--border-light);
-      flex-wrap: wrap;
-    }
-
-    .tab-btn {
-      padding: 10px 18px;
-      border-radius: 10px;
-      background: transparent;
-      border: 1px solid transparent;
-      color: var(--text-muted);
-      cursor: pointer;
-      font-weight: 600;
-      font-size: 0.85rem;
-      transition: var(--transition);
-    }
-
-    .tab-btn.active {
-      background: rgba(212, 175, 55, 0.15);
-      color: var(--gold-light);
-      border-color: var(--border-gold);
-    }
-
-    .preview-content {
-      padding: 36px;
-      display: none;
-    }
-
-    .preview-content.active {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 24px;
-    }
-
-    .mock-widget {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid var(--border-light);
-      padding: 24px;
-      border-radius: 14px;
-    }
-
-    .mock-widget h4 {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      margin-bottom: 8px;
-    }
-
-    .mock-widget .big-val {
-      font-size: 1.75rem;
-      font-weight: 700;
-      color: var(--text-main);
-      margin-bottom: 8px;
-    }
-
-    /* ==========================================
-       7. DEVELOPER PROFILE SECTION
-       ========================================== */
-    .dev-card {
-      display: grid;
-      grid-template-columns: 1.2fr 1fr;
-      gap: 40px;
-      background: linear-gradient(145deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01));
-      border: 1px solid var(--border-gold);
-      border-radius: var(--radius);
-      padding: 48px;
-      align-items: center;
-    }
-
-    .dev-role {
-      color: var(--gold);
-      font-size: 0.85rem;
-      text-transform: uppercase;
-      margin-bottom: 8px;
-      display: block;
-    }
-
-    .dev-card h2 {
-      font-size: 2.2rem;
-      margin-bottom: 16px;
-    }
-
-    .dev-card p {
-      color: var(--text-muted);
-      margin-bottom: 24px;
-    }
-
-    .skill-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-    }
-
-    .skill-box {
-      background: rgba(0, 0, 0, 0.45);
-      border: 1px solid var(--border-light);
-      padding: 20px;
-      border-radius: 14px;
-    }
-
-    .skill-box h4 {
-      color: var(--gold-light);
-      font-size: 1.1rem;
-      margin-bottom: 6px;
-    }
-
-    .skill-box p {
-      font-size: 0.82rem;
-      margin: 0;
-    }
-
-    /* ==========================================
-       8. PRICING PLANS (INDIA EXCLUSIVE - INR)
-       ========================================== */
-    .pricing-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 24px;
-    }
-
-    .price-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-light);
-      border-radius: var(--radius);
-      padding: 36px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      transition: var(--transition);
-    }
-
-    .price-card.featured {
-      border-color: var(--gold);
-      background: linear-gradient(180deg, rgba(212, 175, 55, 0.09) 0%, rgba(255, 255, 255, 0.02) 100%);
-      transform: scale(1.02);
-    }
-
-    .price-amount {
-      font-size: 2.5rem;
-      font-weight: 800;
-      margin: 16px 0 8px;
-      color: var(--text-main);
-    }
-
-    .price-amount span {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      font-weight: 400;
-    }
-
-    .price-list {
-      list-style: none;
-      margin: 24px 0 32px;
-    }
-
-    .price-list li {
-      margin-bottom: 12px;
-      font-size: 0.92rem;
-      color: var(--text-muted);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .price-list li::before {
-      content: "✓";
-      color: var(--gold);
-      font-weight: bold;
-    }
-
-    /* ==========================================
-       9. BOOKING FORM & ADMIN CRM MODAL
-       ========================================== */
-    .form-box {
-      max-width: 720px;
-      margin: 0 auto;
-      background: var(--bg-card);
-      border: 1px solid var(--border-light);
-      padding: 40px;
-      border-radius: var(--radius);
-    }
-
-    .form-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-      margin-bottom: 20px;
-    }
-
-    label {
-      display: block;
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      margin-bottom: 8px;
-    }
-
-    input, select, textarea {
-      width: 100%;
-      padding: 14px;
-      border-radius: 12px;
-      border: 1px solid var(--border-light);
-      background: rgba(0, 0, 0, 0.5);
-      color: var(--text-main);
-      font-family: inherit;
-      font-size: 0.95rem;
-    }
-
-    input:focus, select:focus, textarea:focus {
-      outline: none;
-      border-color: var(--gold);
-    }
-
-    /* Modal for Built-In Business CRM */
-    .modal-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.8);
-      backdrop-filter: blur(10px);
-      display: none;
-      place-items: center;
-      z-index: 200;
-      padding: 20px;
-    }
-
-    .modal-overlay.open {
-      display: grid;
-    }
-
-    .modal-window {
-      background: #101015;
-      border: 1px solid var(--border-gold);
-      border-radius: var(--radius);
-      width: 100%;
-      max-width: 800px;
-      padding: 32px;
-      max-height: 85vh;
-      overflow-y: auto;
-    }
-
-    .lead-item {
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid var(--border-light);
-      border-radius: 12px;
-      padding: 16px;
-      margin-bottom: 12px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    footer {
-      border-top: 1px solid var(--border-light);
-      padding: 40px 0;
-      text-align: center;
-      color: var(--text-muted);
-      font-size: 0.9rem;
-    }
-
-    @media (max-width: 768px) {
-      .nav-links { display: none; }
-      .dev-card, .form-grid { grid-template-columns: 1fr; }
-      .price-card.featured { transform: none; }
+    input[type="range"] {
+      accent-color: #d4af37;
     }
   </style>
 </head>
-<body class="dot-bg">
+<body class="bg-obsidian bg-dot-matrix antialiased selection:bg-gold selection:text-obsidian">
 
-  <!-- ==========================================
-       1. NAVIGATION BAR
-       ========================================== -->
-  <header>
-    <div class="container nav-bar">
-      <a href="#" class="brand">
-        <div class="brand-mark">PS</div>
-        <span>SALUNKE STUDIO</span>
-        <span class="india-badge mono">🇮🇳 INDIA EXCLUSIVE</span>
-      </a>
+  <!-- Ambient Background Lighting -->
+  <div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
+    <div class="absolute -top-40 -left-40 w-[550px] h-[550px] rounded-full bg-gold/10 blur-[150px] animate-glow"></div>
+    <div class="absolute top-1/3 -right-40 w-[500px] h-[500px] rounded-full bg-kinetic/10 blur-[150px] animate-glow"></div>
+  </div>
 
-      <ul class="nav-links">
-        <li><a href="#features">Capabilities</a></li>
-        <li><a href="#preview">Live Systems</a></li>
-        <li><a href="#developer">Architect</a></li>
-        <li><a href="#pricing">Plans (₹)</a></li>
-        <li><a href="#commission">Book Project</a></li>
-      </ul>
-
-      <div class="nav-actions">
-        <button class="btn btn-outline mono" onclick="toggleCRM()">
-          Admin CRM (<span id="leadCount">0</span>)
-        </button>
-      </div>
-    </div>
-  </header>
-
-  <!-- ==========================================
-       2. HERO SECTION
-       ========================================== -->
-  <section class="hero container">
-    <div class="hero-pill mono">
-      <span class="pulse-dot"></span>
-      EXCLUSIVELY FOR INDIAN LUXURY BRANDS & ENTERPRISES
-    </div>
-
-    <h1>Flagship Web Architecture & Automated Business Engines.</h1>
-
-    <p>
-      Engineered with the design precision of Apple, the raw telemetry aesthetics of Nothing, and enterprise CRM power. We build ultra-luxury websites, custom client portals, and automated business engines for India’s top businesses.
-    </p>
-
-    <div class="hero-buttons">
-      <a href="#pricing" class="btn btn-gold">Explore Investment Plans (₹)</a>
-      <a href="#preview" class="btn btn-outline">Test Interactive Dashboards</a>
-    </div>
-
-    <div class="hero-metrics">
-      <div class="metric-box">
-        <h3 class="mono">99.9%</h3>
-        <p>Uptime & High-Speed Architecture</p>
-      </div>
-      <div class="metric-box">
-        <h3 class="mono">🇮🇳 Pan-India</h3>
-        <p>Mumbai • Delhi NCR • Bengaluru • Pune</p>
-      </div>
-      <div class="metric-box">
-        <h3 class="mono">UPI & GST</h3>
-        <p>Razorpay & Indian Billing Ready</p>
-      </div>
-      <div class="metric-box">
-        <h3 class="mono">24/7</h3>
-        <p>Automated Python & Java Engines</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==========================================
-       3. CORE CAPABILITIES BENTO GRID
-       ========================================== -->
-  <section id="features" class="container">
-    <div class="section-header">
-      <span class="section-tag mono">// 01. ENTERPRISE CAPABILITIES</span>
-      <h2>Built Like World-Class Tech Giants.</h2>
-      <p>Every platform is custom-engineered from scratch to automate your operations and elevate your brand authority in the Indian market.</p>
-    </div>
-
-    <div class="bento-grid">
-      <!-- Feature 1 -->
-      <div class="bento-card">
-        <span class="card-code mono">SYS_01 // CUSTOM FUNCTIONS</span>
-        <h3>Custom Function Building</h3>
-        <p>Tailor-made calculators, dynamic price estimators, appointment booking flows, and business-specific logic built with Java & Python.</p>
-        <div class="feature-tags">
-          <span>Dynamic Pricing</span>
-          <span>Custom Workflows</span>
-          <span>API Integrations</span>
-        </div>
-      </div>
-
-      <!-- Feature 2 -->
-      <div class="bento-card">
-        <span class="card-code mono">SYS_02 // LUXURY UI/UX</span>
-        <h3>Premium Interface Designing</h3>
-        <p>Frosted-glass surfaces, fluid micro-animations, and ultra-responsive layouts inspired by Apple, Samsung, and Nothing OS.</p>
-        <div class="feature-tags">
-          <span>60FPS Animations</span>
-          <span>Dark Titanium UI</span>
-          <span>Mobile First</span>
-        </div>
-      </div>
-
-      <!-- Feature 3 -->
-      <div class="bento-card">
-        <span class="card-code mono">SYS_03 // INTERACTIVE ENGINES</span>
-        <h3>Interactive Client Engines</h3>
-        <p>Real-time product customizers, interactive service selectors, and instant quotation tools that turn website visitors into paying clients.</p>
-        <div class="feature-tags">
-          <span>Live Configurators</span>
-          <span>Instant Quotes</span>
-          <span>High Conversion</span>
-        </div>
-      </div>
-
-      <!-- Feature 4 -->
-      <div class="bento-card">
-        <span class="card-code mono">SYS_04 // AUTOMATION</span>
-        <h3>Automated Engines & Tools</h3>
-        <p>Python-powered automation for instant GST invoice generation, WhatsApp lead alerts, automated email follow-ups, and report generation.</p>
-        <div class="feature-tags">
-          <span>Python Automation</span>
-          <span>Auto GST Invoices</span>
-          <span>WhatsApp Alerts</span>
-        </div>
-      </div>
-
-      <!-- Feature 5 -->
-      <div class="bento-card">
-        <span class="card-code mono">SYS_05 // SECURITY & AUTH</span>
-        <h3>CRM & Multi-Role Login Panels</h3>
-        <p>Secure authentication portals with role-based access for Business Owners, Staff Members, and VIP Customers.</p>
-        <div class="feature-tags">
-          <span>Encrypted Login</span>
-          <span>OTP / Email Auth</span>
-          <span>Role Management</span>
-        </div>
-      </div>
-
-      <!-- Feature 6 -->
-      <div class="bento-card">
-        <span class="card-code mono">SYS_06 // COMMAND CENTER</span>
-        <h3>Admin & Customer Dashboards</h3>
-        <p>Dedicated dashboards where owners track ₹ revenue and leads, while customers log in to track orders, documents, and invoices.</p>
-        <div class="feature-tags">
-          <span>Admin Command Panel</span>
-          <span>Customer Portal</span>
-          <span>Live Analytics</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==========================================
-       4. INTERACTIVE SYSTEM PREVIEW
-       ========================================== -->
-  <section id="preview" class="container">
-    <div class="section-header">
-      <span class="section-tag mono">// 02. LIVE ARCHITECTURE SANDBOX</span>
-      <h2>Preview Your Future Control Center.</h2>
-      <p>Click through the tabs below to experience the dashboards and automated tools we build for your business.</p>
-    </div>
-
-    <div class="preview-box">
-      <div class="preview-tabs">
-        <button class="tab-btn active" onclick="switchTab('admin', this)">1. Admin CRM & Revenue Panel</button>
-        <button class="tab-btn" onclick="switchTab('customer', this)">2. VIP Customer Login Dashboard</button>
-        <button class="tab-btn" onclick="switchTab('automation', this)">3. Automated Python & Java Engine</button>
-      </div>
-
-      <!-- Tab 1: Admin Dashboard -->
-      <div id="tab-admin" class="preview-content active">
-        <div class="mock-widget">
-          <h4>MONTHLY REVENUE (INR)</h4>
-          <div class="big-val mono">₹14,85,000</div>
-          <span style="color: var(--success); font-size: 0.85rem;">▲ +28.4% vs last month (UPI / Razorpay)</span>
-        </div>
-        <div class="mock-widget">
-          <h4>ACTIVE CLIENT LEADS</h4>
-          <div class="big-val mono">42 Verified</div>
-          <span style="color: var(--gold-light); font-size: 0.85rem;">Mumbai, Pune, Bengaluru & Delhi NCR</span>
-        </div>
-        <div class="mock-widget">
-          <h4>ADMIN QUICK CONTROLS</h4>
-          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px;">
-            Manage staff permissions, approve client quotes, and export GST reports in one click.
-          </p>
-          <span class="india-badge mono">ROLE: SUPER_ADMIN</span>
-        </div>
-      </div>
-
-      <!-- Tab 2: Customer Dashboard -->
-      <div id="tab-customer" class="preview-content">
-        <div class="mock-widget">
-          <h4>CLIENT PORTAL STATUS</h4>
-          <div class="big-val mono">Project: 85%</div>
-          <span style="color: var(--accent-blue); font-size: 0.85rem;">Stage: Custom CRM Integration</span>
-        </div>
-        <div class="mock-widget">
-          <h4>INVOICES & PAYMENTS</h4>
-          <div class="big-val mono">GST Paid ✓</div>
-          <span style="color: var(--text-muted); font-size: 0.85rem;">Download Tax Invoices & Receipts</span>
-        </div>
-        <div class="mock-widget">
-          <h4>VIP SUPPORT DESK</h4>
-          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px;">
-            Dedicated 1-on-1 priority ticket channel and live milestone approvals for your customers.
-          </p>
-          <span class="india-badge mono">CLIENT VAULT ACTIVE</span>
-        </div>
-      </div>
-
-      <!-- Tab 3: Automation Engine -->
-      <div id="tab-automation" class="preview-content">
-        <div class="mock-widget">
-          <h4>PYTHON AUTOMATION DAEMON</h4>
-          <div class="big-val mono" style="color: var(--success);">ONLINE</div>
-          <span style="color: var(--text-muted); font-size: 0.85rem;">Auto-capturing leads & sending alerts</span>
-        </div>
-        <div class="mock-widget">
-          <h4>JAVA CORE ENGINE</h4>
-          <div class="big-val mono">14ms Latency</div>
-          <span style="color: var(--gold-light); font-size: 0.85rem;">Enterprise-grade security & logic</span>
-        </div>
-        <div class="mock-widget">
-          <h4>HOURS SAVED WEEKLY</h4>
-          <div class="big-val mono">32+ Hours</div>
-          <span style="color: var(--text-muted); font-size: 0.85rem;">Replaces manual spreadsheet work</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==========================================
-       5. DEVELOPER PROFILE (PRATHAMESH SALUNKE)
-       ========================================== -->
-  <section id="developer" class="container">
-    <div class="dev-card">
-      <div>
-        <span class="dev-role mono">// PRINCIPAL ARCHITECT & PROFESSIONAL WEB DEVELOPER</span>
-        <h2>Prathamesh Sanjay Salunke</h2>
-        <p>
-          Based in <strong>Mumbai, Maharashtra</strong>, I design and engineer high-converting luxury websites, custom CRM portals, and automated software ecosystems exclusively for ambitious Indian businesses and enterprise brands.
-        </p>
-        <p>
-          By combining clean frontend aesthetics with powerful backend logic, every platform is built to look like a global flagship product while running your daily business operations on autopilot.
-        </p>
-        <a href="#commission" class="btn btn-gold">Commission Your Website</a>
-      </div>
-
-      <div class="skill-grid">
-        <div class="skill-box">
-          <h4 class="mono">Java</h4>
-          <p>Enterprise Backend Logic, Secure Authentication & Scalable Systems.</p>
-        </div>
-        <div class="skill-box">
-          <h4 class="mono">Python</h4>
-          <p>Automated Business Engines, Data Tools, Dashboards & APIs.</p>
-        </div>
-        <div class="skill-box">
-          <h4 class="mono">HTML5</h4>
-          <p>Semantic, SEO-Optimized & High-Speed Flagship Web Structure.</p>
-        </div>
-        <div class="skill-box">
-          <h4 class="mono">CSS3</h4>
-          <p>Luxury Glassmorphism, Responsive Layouts & 60FPS Motion Design.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==========================================
-       6. PRICING PLANS (INDIA EXCLUSIVE - INR)
-       ========================================== -->
-  <section id="pricing" class="container">
-    <div class="section-header">
-      <span class="section-tag mono">// 03. TRANSPARENT INVESTMENT TIERS (INDIA)</span>
-      <h2>Choose Your Flagship Architecture.</h2>
-      <p>Tailored exclusively for Indian businesses. All plans include mobile responsiveness, Indian payment gateway readiness, and dedicated support.</p>
-    </div>
-
-    <div class="pricing-grid">
-      <!-- Plan 1 -->
-      <div class="price-card">
-        <div>
-          <span class="card-code mono">TIER 01 // EXECUTIVE LAUNCH</span>
-          <h3>Luxury Brand Website</h3>
-          <div class="price-amount mono">₹29,999 <span>/ one-time</span></div>
-          <p style="color: var(--text-muted); font-size: 0.9rem;">Ideal for premium clinics, studios, agencies, and luxury retail brands in India.</p>
-          <ul class="price-list">
-            <li>Apple / Nothing Inspired Custom UI Design</li>
-            <li>Up to 6 Ultra-Responsive Flagship Pages</li>
-            <li>Interactive Service & Pricing Estimator</li>
-            <li>WhatsApp Business & Lead Capture Integration</li>
-            <li>SEO & High-Speed Performance Optimization</li>
-          </ul>
-        </div>
-        <button class="btn btn-outline" onclick="selectPlan('Luxury Brand Website (₹29,999)')">Select Executive Plan</button>
-      </div>
-
-      <!-- Plan 2 (Featured) -->
-      <div class="price-card featured">
-        <div>
-          <span class="card-code mono">TIER 02 // MOST POPULAR IN INDIA</span>
-          <h3>Business CRM & Portal Suite</h3>
-          <div class="price-amount mono">₹64,999 <span>/ one-time</span></div>
-          <p style="color: var(--text-muted); font-size: 0.9rem;">Complete website + Admin CRM & Customer Login Dashboard to manage your business.</p>
-          <ul class="price-list">
-            <li>Everything in Luxury Brand Website</li>
-            <li>Secure Admin CRM & Lead Management Panel</li>
-            <li>Customer Login Portal & Order/Project Tracker</li>
-            <li>Python Automated Invoice & Email Alerts</li>
-            <li>Razorpay / UPI Payment Gateway Integration</li>
-          </ul>
-        </div>
-        <button class="btn btn-gold" onclick="selectPlan('Business CRM & Portal Suite (₹64,999)')">Select CRM Suite</button>
-      </div>
-
-      <!-- Plan 3 -->
-      <div class="price-card">
-        <div>
-          <span class="card-code mono">TIER 03 // BESPOKE ENTERPRISE</span>
-          <h3>Custom Flagship Ecosystem</h3>
-          <div class="price-amount mono">₹1,25,000+ <span>/ custom</span></div>
-          <p style="color: var(--text-muted); font-size: 0.9rem;">Full-scale custom web application with bespoke Java & Python engines.</p>
-          <ul class="price-list">
-            <li>Everything in Business CRM & Portal Suite</li>
-            <li>Custom Function & Interactive Engine Building</li>
-            <li>Multi-Role Portals (Admin, Staff, VIP Client)</li>
-            <li>Full Python & Java Backend Automation</li>
-            <li>Priority 1-on-1 Architecture Support (IST)</li>
-          </ul>
-        </div>
-        <button class="btn btn-outline" onclick="selectPlan('Custom Flagship Ecosystem (₹1,25,000+)')">Request Bespoke Scope</button>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==========================================
-       7. COMMISSION / PROJECT INQUIRY FORM
-       ========================================== -->
-  <section id="commission" class="container">
-    <div class="section-header">
-      <span class="section-tag mono">// 04. START YOUR PROJECT</span>
-      <h2>Commission Your Digital Flagship.</h2>
-      <p>Submit your business details below. Your inquiry goes directly into our Studio CRM for a priority consultation within 24 hours (IST).</p>
-    </div>
-
-    <form class="form-box" onsubmit="submitLead(event)">
-      <div class="form-grid">
-        <div>
-          <label>Your Full Name *</label>
-          <input type="text" id="clientName" placeholder="e.g., Rohan Mehta" required />
-        </div>
-        <div>
-          <label>Business / Brand Name *</label>
-          <input type="text" id="businessName" placeholder="e.g., Aura Luxury Ventures" required />
-        </div>
-      </div>
-
-      <div class="form-grid">
-        <div>
-          <label>Phone / WhatsApp (+91) *</label>
-          <input type="tel" id="clientPhone" placeholder="+91 98765 43210" required />
-        </div>
-        <div>
-          <label>Indian City / Location *</label>
-          <input type="text" id="clientCity" placeholder="e.g., Mumbai, Maharashtra" required />
-        </div>
-      </div>
-
-      <div style="margin-bottom: 20px;">
-        <label>Selected Investment Plan *</label>
-        <select id="selectedPlan">
-          <option value="Luxury Brand Website (₹29,999)">Tier 01 — Luxury Brand Website (₹29,999)</option>
-          <option value="Business CRM & Portal Suite (₹64,999)" selected>Tier 02 — Business CRM & Portal Suite (₹64,999)</option>
-          <option value="Custom Flagship Ecosystem (₹1,25,000+)">Tier 03 — Custom Flagship Ecosystem (₹1,25,000+)</option>
-        </select>
-      </div>
-
-      <div style="margin-bottom: 24px;">
-        <label>Required Features (Custom Functions, Login Panels, Automation, etc.)</label>
-        <textarea id="clientNotes" rows="4" placeholder="Tell us about your business goals, custom functions, or dashboard requirements..."></textarea>
-      </div>
-
-      <button type="submit" class="btn btn-gold" style="width: 100%;">
-        Submit Project Inquiry (India Only)
-      </button>
-    </form>
-  </section>
-
-  <!-- ==========================================
-       8. BUILT-IN ADMIN CRM MODAL (MANAGE LEADS)
-       ========================================== -->
-  <div id="crmModal" class="modal-overlay">
-    <div class="modal-window">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
-        <div>
-          <span class="section-tag mono" style="margin: 0;">// SALUNKE STUDIO ADMIN PANEL</span>
-          <h3>Client Inquiries & Lead CRM</h3>
-        </div>
-        <button class="btn btn-outline" onclick="toggleCRM()">Close ✕</button>
-      </div>
-
-      <div id="leadsContainer"></div>
-
-      <div style="margin-top: 20px; display: flex; justify-content: space-between;">
-        <button class="btn btn-outline" onclick="clearLeads()">Clear All Demo Leads</button>
-        <span class="mono" style="font-size: 0.8rem; color: var(--text-muted); align-self: center;">
-          Stored locally in browser • Ready for Backend API
+  <!-- Top Telemetry Bar -->
+  <div class="relative z-40 border-b border-white/5 bg-obsidian/90 backdrop-blur-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-9 flex items-center justify-between text-[11px] font-mono tracking-wider text-zinc-400">
+      <div class="flex items-center space-x-3">
+        <span class="inline-flex items-center gap-1.5 text-emerald-400">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+          SYS.ONLINE // CORE v4.8
         </span>
+        <span class="hidden sm:inline text-zinc-600">|</span>
+        <span class="hidden sm:inline">LATENCY: 0.4ms</span>
+        <span class="hidden md:inline text-zinc-600">|</span>
+        <span class="hidden md:inline text-gold/90">ARCHITECT: PRATHAMESH SANJAY SALUNKE</span>
+      </div>
+      <div class="flex items-center space-x-4">
+        <button onclick="toggleCurrency()" id="currencyBtn" class="hover:text-white transition flex items-center gap-1 text-zinc-300">
+          <span>CURRENCY:</span>
+          <span id="activeCurrencyLabel" class="text-gold font-semibold">INR (₹)</span>
+        </button>
+        <span class="text-zinc-600">|</span>
+        <span id="liveClock" class="text-zinc-400">00:00:00 UTC</span>
       </div>
     </div>
   </div>
 
-  <!-- ==========================================
-       9. FOOTER
-       ========================================== -->
-  <footer>
-    <div class="container">
-      <p class="mono" style="color: var(--gold-light); margin-bottom: 8px;">
-        SALUNKE STUDIO // LUXURY WEB ARCHITECTURE & AUTOMATED SYSTEMS
-      </p>
-      <p>
-        Architected by <strong>Prathamesh Sanjay Salunke</strong> (Java • Python • HTML5 • CSS3) | Exclusively Serving India 🇮🇳
-      </p>
+  <!-- Sticky Navigation Header -->
+  <header class="sticky top-0 z-40 glass-panel border-t-0 border-x-0 border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <!-- Brand Identity -->
+      <a href="#" class="flex items-center gap-3.5 group">
+        <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-gold/30 via-surface to-obsidian border border-gold/40 flex items-center justify-center shadow-lg shadow-gold/5 group-hover:border-gold transition">
+          <svg class="w-6 h-6 text-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+          </svg>
+        </div>
+        <div>
+          <div class="font-display font-bold text-lg tracking-[0.18em] text-white flex items-center gap-1.5">
+            KINETIX <span class="text-gold font-mono text-sm">//</span> ENGINE
+          </div>
+          <div class="font-mono text-[10px] tracking-[0.22em] text-zinc-400 uppercase">
+            Bespoke Digital Systems
+          </div>
+        </div>
+      </a>
+
+      <!-- Nav Links -->
+      <nav class="hidden lg:flex items-center gap-8 text-sm font-medium text-zinc-300">
+        <a href="#capabilities" class="hover:text-gold transition">Capabilities</a>
+        <a href="#sandbox" class="hover:text-gold transition">Live Engines</a>
+        <a href="#architect" class="hover:text-gold transition">Principal Architect</a>
+        <a href="#tiers" class="hover:text-gold transition">Investment Tiers</a>
+        <a href="#configurator" class="hover:text-gold transition">Bespoke Builder</a>
+      </nav>
+
+      <!-- Action Buttons -->
+      <div class="flex items-center gap-3">
+        <button onclick="openStudioCRM()" class="relative px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/15 text-xs font-mono uppercase tracking-wider text-zinc-200 flex items-center gap-2 transition">
+          <span class="w-2 h-2 rounded-full bg-gold"></span>
+          <span>Studio CRM</span>
+          <span id="crmBadgeCount" class="px-1.5 py-0.5 text-[10px] rounded bg-gold text-obsidian font-bold">3</span>
+        </button>
+        <a href="#configurator" class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-gold to-gold-light text-obsidian font-semibold text-xs uppercase tracking-wider shadow-lg shadow-gold/20 hover:brightness-110 transition">
+          <span>Commission System</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="relative z-10">
+
+    <!-- HERO SECTION -->
+    <section class="pt-20 pb-28 sm:pt-28 sm:pb-36 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+      <div class="text-center max-w-4xl mx-auto">
+        <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full glass-panel border-gold/30 text-xs font-mono tracking-widest uppercase text-gold mb-8">
+          <span class="w-1.5 h-1.5 rounded-full bg-gold"></span>
+          PRIVATE DIGITAL ENGINEERING FOR MARKET LEADERS
+        </div>
+
+        <h1 class="font-display text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.08] text-gradient-titanium mb-6">
+          We Don’t Build Templates. <br />
+          <span class="text-gradient-gold">We Engineer Digital Monoliths.</span>
+        </h1>
+
+        <p class="text-zinc-400 text-base sm:text-xl max-w-3xl mx-auto font-light leading-relaxed mb-10">
+          KINETIX ENGINE architects ultra-luxury web ecosystems, autonomous <span class="text-white font-medium">Python &amp; Java</span> backend engines, interactive product configurators, and multi-role <span class="text-white font-medium">Admin &amp; Client CRM Portals</span> for high-growth enterprises.
+        </p>
+
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <a href="#configurator" class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-gradient-to-r from-gold via-gold-light to-gold text-obsidian font-display font-bold text-sm tracking-wider uppercase shadow-xl shadow-gold/20 hover:scale-[1.02] transition flex items-center justify-center gap-3">
+            <span>Launch Project Configurator</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+          </a>
+          <a href="#sandbox" class="w-full sm:w-auto px-8 py-4 rounded-2xl glass-panel hover:bg-white/10 text-white font-mono text-xs tracking-widest uppercase transition flex items-center justify-center gap-2.5">
+            <span>Test Live Interactive Engines</span>
+            <span class="px-2 py-0.5 rounded bg-kinetic/20 text-kinetic text-[10px]">LIVE DEMO</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Executive Telemetry Metrics Strip -->
+      <div class="mt-20 grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="glass-panel rounded-2xl p-6 border-white/10">
+          <div class="font-mono text-xs text-zinc-500 uppercase tracking-widest mb-1">01 // PERFORMANCE SLA</div>
+          <div class="font-display text-3xl sm:text-4xl font-bold text-white">99.98<span class="text-gold">%</span></div>
+          <div class="text-xs text-zinc-400 mt-1">Sub-second global edge execution</div>
+        </div>
+        <div class="glass-panel rounded-2xl p-6 border-white/10">
+          <div class="font-mono text-xs text-zinc-500 uppercase tracking-widest mb-1">02 // CORE STACK</div>
+          <div class="font-display text-2xl sm:text-3xl font-bold text-white">JAVA • PYTHON</div>
+          <div class="text-xs text-zinc-400 mt-1">HTML5 + CSS3 Kinetic UI Architecture</div>
+        </div>
+        <div class="glass-panel rounded-2xl p-6 border-white/10">
+          <div class="font-mono text-xs text-zinc-500 uppercase tracking-widest mb-1">03 // CLIENT INFRASTRUCTURE</div>
+          <div class="font-display text-3xl sm:text-4xl font-bold text-white">DUAL<span class="text-kinetic">-CRM</span></div>
+          <div class="text-xs text-zinc-400 mt-1">Admin Command + VIP Client Vaults</div>
+        </div>
+        <div class="glass-panel rounded-2xl p-6 border-white/10">
+          <div class="font-mono text-xs text-zinc-500 uppercase tracking-widest mb-1">04 // CODE OWNERSHIP</div>
+          <div class="font-display text-3xl sm:text-4xl font-bold text-gold">100% IP</div>
+          <div class="text-xs text-zinc-400 mt-1">Zero template bloat. Pure bespoke builds.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BENTO CAPABILITIES MATRIX -->
+    <section id="capabilities" class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-white/10">
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-16">
+        <div>
+          <div class="font-mono text-xs uppercase tracking-[0.25em] text-gold mb-3">01 // SYSTEM ARCHITECTURE</div>
+          <h2 class="font-display text-3xl sm:text-5xl font-bold text-white tracking-tight">
+            Engineered Capabilities for <span class="text-gradient-gold">Apex Brands</span>
+          </h2>
+        </div>
+        <p class="text-zinc-400 text-sm max-w-md mt-4 md:mt-0 font-light">
+          Every KINETIX ENGINE commission fuses tactile visual luxury with hardened backend automation so your website functions as your highest-performing executive asset.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+        <!-- Card 1: Custom Function Building (7 cols) -->
+        <div class="md:col-span-7 glass-panel glass-panel-hover rounded-3xl p-8 relative overflow-hidden group">
+          <div class="flex items-center justify-between mb-6">
+            <span class="font-mono text-xs px-3 py-1 rounded-full bg-gold/15 text-gold border border-gold/30">MODULE // 01</span>
+            <span class="font-mono text-xs text-zinc-500">JAVA + PYTHON LOGIC</span>
+          </div>
+          <h3 class="font-display text-2xl sm:text-3xl font-bold text-white mb-3">Custom Function Building &amp; Proprietary Algorithms</h3>
+          <p class="text-zinc-400 text-sm leading-relaxed mb-6">
+            Off-the-shelf plugins break at scale. We engineer bespoke business logic tailored to your exact operational model—dynamic pricing calculators, real-time inventory allocation, multi-variable underwriting engines, and intelligent booking matrices.
+          </p>
+          <div class="bg-obsidian/80 border border-white/10 rounded-2xl p-4 font-mono text-xs text-zinc-300 space-y-1.5">
+            <div class="flex items-center justify-between text-zinc-500 border-b border-white/5 pb-1.5">
+              <span>kinetix_engine_core.py</span>
+              <span class="text-emerald-400">● COMPILED</span>
+            </div>
+            <div><span class="text-kinetic">def</span> <span class="text-gold">compute_dynamic_enterprise_quote</span>(telemetry, tier_matrix):</div>
+            <div class="pl-4 text-zinc-400">margin_index = JavaBridge.optimizeThroughput(telemetry)</div>
+            <div class="pl-4 text-emerald-400">return VaultSecurity.signPayload(margin_index * tier_matrix)</div>
+          </div>
+        </div>
+
+        <!-- Card 2: Premium Interface Designing (5 cols) -->
+        <div class="md:col-span-5 glass-panel glass-panel-hover rounded-3xl p-8 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-6">
+              <span class="font-mono text-xs px-3 py-1 rounded-full bg-kinetic/15 text-kinetic border border-kinetic/30">MODULE // 02</span>
+              <span class="font-mono text-xs text-zinc-500">HTML5 + CSS3 GLASS UI</span>
+            </div>
+            <h3 class="font-display text-2xl font-bold text-white mb-3">Luxury Interface &amp; Micro-Interaction Design</h3>
+            <p class="text-zinc-400 text-sm leading-relaxed mb-6">
+              Precision spatial typography, obsidian acrylic surfaces, and 60FPS hardware-accelerated motion choreography that immediately signals market authority to high-net-worth clients.
+            </p>
+          </div>
+          <div class="grid grid-cols-3 gap-3 pt-4 border-t border-white/10 text-center font-mono text-xs">
+            <div class="p-3 rounded-xl bg-white/5">
+              <div class="text-gold font-bold text-base">60 FPS</div>
+              <div class="text-[10px] text-zinc-400">MOTION</div>
+            </div>
+            <div class="p-3 rounded-xl bg-white/5">
+              <div class="text-white font-bold text-base">100/100</div>
+              <div class="text-[10px] text-zinc-400">LIGHTHOUSE</div>
+            </div>
+            <div class="p-3 rounded-xl bg-white/5">
+              <div class="text-kinetic font-bold text-base">4K RETINA</div>
+              <div class="text-[10px] text-zinc-400">SCALING</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3: CRM & Login Panels (5 cols) -->
+        <div class="md:col-span-5 glass-panel glass-panel-hover rounded-3xl p-8 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-6">
+              <span class="font-mono text-xs px-3 py-1 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">MODULE // 03</span>
+              <span class="font-mono text-xs text-zinc-500">RBAC SECURITY</span>
+            </div>
+            <h3 class="font-display text-2xl font-bold text-white mb-3">CRM, Login Panels &amp; Dual Dashboards</h3>
+            <p class="text-zinc-400 text-sm leading-relaxed mb-6">
+              Dedicated role-based portals. Your executives get a centralized **Admin Command Center** to track leads, invoices, and pipelines, while your clients log into a branded **VIP Customer Vault**.
+            </p>
+          </div>
+          <div class="space-y-2 font-mono text-xs">
+            <div class="flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-obsidian/70 border border-white/10">
+              <span class="text-zinc-300">Admin Command Console</span>
+              <span class="text-emerald-400">FULL READ/WRITE</span>
+            </div>
+            <div class="flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-obsidian/70 border border-white/10">
+              <span class="text-zinc-300">VIP Client Login Vault</span>
+              <span class="text-gold">ENCRYPTED PORTAL</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 4: Automated Engines & Interactive Tools (7 cols) -->
+        <div class="md:col-span-7 glass-panel glass-panel-hover rounded-3xl p-8">
+          <div class="flex items-center justify-between mb-6">
+            <span class="font-mono text-xs px-3 py-1 rounded-full bg-purple-500/15 text-purple-300 border border-purple-500/30">MODULE // 04</span>
+            <span class="font-mono text-xs text-zinc-500">AUTONOMOUS PIPELINES</span>
+          </div>
+          <h3 class="font-display text-2xl sm:text-3xl font-bold text-white mb-3">Interactive Engines &amp; Automated Business Tools</h3>
+          <p class="text-zinc-400 text-sm leading-relaxed mb-6">
+            Replace manual administrative bottlenecks with self-running software. From interactive 3D/real-time quote configurators on the frontend to automated PDF contract generation, WhatsApp/Email dispatchers, and CRM data synchronization on the backend.
+          </p>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div class="p-4 rounded-2xl bg-obsidian/75 border border-white/10">
+              <div class="font-mono text-[11px] text-gold mb-1">STEP 01 // CAPTURE</div>
+              <div class="text-sm font-semibold text-white">Interactive Configurator</div>
+              <div class="text-xs text-zinc-400 mt-1">Client builds custom scope &amp; pricing live.</div>
+            </div>
+            <div class="p-4 rounded-2xl bg-obsidian/75 border border-white/10">
+              <div class="font-mono text-[11px] text-kinetic mb-1">STEP 02 // PROCESS</div>
+              <div class="text-sm font-semibold text-white">Python/Java Engine</div>
+              <div class="text-xs text-zinc-400 mt-1">Validates rules, scores lead &amp; drafts SLA.</div>
+            </div>
+            <div class="p-4 rounded-2xl bg-obsidian/75 border border-white/10">
+              <div class="font-mono text-[11px] text-emerald-400 mb-1">STEP 03 // DEPLOY</div>
+              <div class="text-sm font-semibold text-white">CRM &amp; Client Portal</div>
+              <div class="text-xs text-zinc-400 mt-1">Instant dashboard provisioning &amp; alerts.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LIVE ARCHITECTURE SANDBOX (INTERACTIVE DEMO) -->
+    <section id="sandbox" class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-white/10">
+      <div class="flex flex-col lg:flex-row lg:items-end justify-between mb-12 gap-6">
+        <div>
+          <div class="font-mono text-xs uppercase tracking-[0.25em] text-kinetic mb-3">02 // INTERACTIVE SYSTEM SANDBOX</div>
+          <h2 class="font-display text-3xl sm:text-5xl font-bold text-white tracking-tight">
+            Test-Drive Our <span class="text-gradient-gold">Live Engines</span>
+          </h2>
+          <p class="text-zinc-400 text-sm mt-3 max-w-2xl">
+            Don’t just read about our capabilities—experience the exact Admin CRM, VIP Customer Login Portal, and Automated ROI Engine we custom-build for our clients.
+          </p>
+        </div>
+
+        <!-- Sandbox Mode Switcher -->
+        <div class="inline-flex p-1.5 rounded-2xl glass-panel border-white/15 self-start">
+          <button onclick="switchSandboxTab('admin')" id="tabBtn-admin" class="px-4 py-2.5 rounded-xl font-mono text-xs uppercase tracking-wider bg-gold text-obsidian font-bold transition">
+            01. Admin CRM Panel
+          </button>
+          <button onclick="switchSandboxTab('client')" id="tabBtn-client" class="px-4 py-2.5 rounded-xl font-mono text-xs uppercase tracking-wider text-zinc-400 hover:text-white transition">
+            02. VIP Client Portal
+          </button>
+          <button onclick="switchSandboxTab('automation')" id="tabBtn-automation" class="px-4 py-2.5 rounded-xl font-mono text-xs uppercase tracking-wider text-zinc-400 hover:text-white transition">
+            03. Automation Engine
+          </button>
+        </div>
+      </div>
+
+      <!-- Sandbox Window Container -->
+      <div class="glass-panel rounded-3xl border border-white/15 overflow-hidden shadow-2xl">
+        <!-- Window Top Chrome -->
+        <div class="bg-obsidian/90 px-6 py-4 border-b border-white/10 flex flex-wrap items-center justify-between gap-4">
+          <div class="flex items-center gap-2">
+            <span class="w-3 h-3 rounded-full bg-rose-500/80"></span>
+            <span class="w-3 h-3 rounded-full bg-amber-400/80"></span>
+            <span class="w-3 h-3 rounded-full bg-emerald-500/80"></span>
+            <span id="sandboxUrlBar" class="ml-3 font-mono text-xs text-zinc-400 bg-white/5 px-3 py-1 rounded-lg border border-white/10">
+              https://portal.kinetix-engine.io/admin-command-center
+            </span>
+          </div>
+          <div class="font-mono text-xs text-emerald-400 flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            ENCRYPTED SESSION // 256-BIT TLS
+          </div>
+        </div>
+
+        <!-- TAB 1: ADMIN CRM PANEL -->
+        <div id="sandboxPanel-admin" class="p-6 sm:p-8 space-y-6">
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div class="p-5 rounded-2xl bg-obsidian/70 border border-white/10">
+              <div class="font-mono text-xs text-zinc-400">ACTIVE ENTERPRISE PIPELINE</div>
+              <div id="sandboxAdminTotal" class="font-display text-3xl font-bold text-gold mt-1">₹24,50,000</div>
+              <div class="text-xs text-emerald-400 font-mono mt-1">▲ +18.4% THIS QUARTER</div>
+            </div>
+            <div class="p-5 rounded-2xl bg-obsidian/70 border border-white/10">
+              <div class="font-mono text-xs text-zinc-400">DEPLOYED CLIENT PORTALS</div>
+              <div class="font-display text-3xl font-bold text-white mt-1">14 Active</div>
+              <div class="text-xs text-zinc-400 font-mono mt-1">100% UPTIME VERIFIED</div>
+            </div>
+            <div class="p-5 rounded-2xl bg-obsidian/70 border border-white/10">
+              <div class="font-mono text-xs text-zinc-400">AUTOMATED WORKFLOW RUNS</div>
+              <div class="font-display text-3xl font-bold text-kinetic mt-1">8,420 / mo</div>
+              <div class="text-xs text-zinc-400 font-mono mt-1">PYTHON + JAVA DAEMONS</div>
+            </div>
+          </div>
+
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-2">
+            <h4 class="font-display text-lg font-semibold text-white">Live Client Commissions &amp; Stage Controller (Click Status to Cycle)</h4>
+            <button onclick="openStudioCRM()" class="self-start sm:self-auto px-4 py-2 rounded-xl bg-gold/15 border border-gold/40 text-gold font-mono text-xs hover:bg-gold hover:text-obsidian transition">
+              + Open Full Studio CRM Manager
+            </button>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="border-b border-white/10 font-mono text-[11px] text-zinc-400 uppercase">
+                  <th class="py-3 px-4">Client / Enterprise</th>
+                  <th class="py-3 px-4">Architecture Scope</th>
+                  <th class="py-3 px-4">Contract Value</th>
+                  <th class="py-3 px-4">Deployment Status (Interactive)</th>
+                </tr>
+              </thead>
+              <tbody id="sandboxAdminTableBody" class="divide-y divide-white/5 text-sm">
+                <!-- Populated dynamically via JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- TAB 2: VIP CLIENT LOGIN & VAULT PORTAL -->
+        <div id="sandboxPanel-client" class="hidden p-6 sm:p-8">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            <!-- Left: Simulated Role Login Switch -->
+            <div class="lg:col-span-5 p-6 rounded-2xl bg-obsidian/80 border border-white/10 space-y-5">
+              <div class="flex items-center justify-between">
+                <span class="font-mono text-xs text-gold uppercase tracking-wider">VIP CLIENT AUTHENTICATION</span>
+                <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-mono text-[10px]">SSO READY</span>
+              </div>
+              <h4 class="font-display text-xl font-bold text-white">Branded Customer Login Experience</h4>
+              <p class="text-xs text-zinc-400 leading-relaxed">
+                Every client receives a dedicated login portal on your domain to view project milestones, download tax invoices, approve UI prototypes, and trigger support tickets.
+              </p>
+              <div class="space-y-3">
+                <div>
+                  <label class="block font-mono text-[11px] text-zinc-400 mb-1">SELECT DEMO CLIENT ACCOUNT</label>
+                  <select id="vipClientSelect" onchange="updateVipVaultView()" class="w-full bg-surface border border-white/15 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-gold">
+                    <option value="0">Aurelia Jewels Pvt. Ltd. (Luxury Retail ERP)</option>
+                    <option value="1">Apex MedTech Hospitals (Patient &amp; Doctor CRM)</option>
+                    <option value="2">Vanguard Estates (3D Property Configurator)</option>
+                  </select>
+                </div>
+                <div class="p-3.5 rounded-xl bg-white/5 border border-white/10 flex items-center justify-between">
+                  <div>
+                    <div class="text-xs font-medium text-white">Biometric &amp; OTP Vault Lock</div>
+                    <div class="text-[11px] text-zinc-400">Zero-trust session protection</div>
+                  </div>
+                  <span class="px-2.5 py-1 rounded-lg bg-emerald-500/20 text-emerald-400 font-mono text-xs">VERIFIED</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right: Live Client Dashboard View -->
+            <div class="lg:col-span-7 p-6 rounded-2xl bg-obsidian/80 border border-gold/30 space-y-6">
+              <div class="flex flex-wrap items-center justify-between gap-2 border-b border-white/10 pb-4">
+                <div>
+                  <div class="font-mono text-[11px] text-zinc-400">LOGGED IN AS VIP CLIENT</div>
+                  <div id="vipClientName" class="font-display text-2xl font-bold text-white">Aurelia Jewels Pvt. Ltd.</div>
+                </div>
+                <span id="vipClientBadge" class="px-3 py-1 rounded-full bg-gold/20 text-gold border border-gold/40 font-mono text-xs">
+                  SOVEREIGN TIER
+                </span>
+              </div>
+
+              <div>
+                <div class="flex justify-between text-xs font-mono mb-2">
+                  <span class="text-zinc-300">LIVE ENGINEERING PROGRESS</span>
+                  <span id="vipClientProgressText" class="text-gold font-bold">82% COMPLETE</span>
+                </div>
+                <div class="w-full h-2.5 bg-white/10 rounded-full overflow-hidden">
+                  <div id="vipClientProgressBar" class="h-full bg-gradient-to-r from-gold to-kinetic transition-all duration-500" style="width: 82%"></div>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+                <div class="p-3.5 rounded-xl bg-white/5 border border-white/10">
+                  <div class="font-mono text-zinc-400">NEXT MILESTONE</div>
+                  <div id="vipClientMilestone" class="text-white font-semibold mt-1">Java Payment Vault Audit</div>
+                </div>
+                <div class="p-3.5 rounded-xl bg-white/5 border border-white/10">
+                  <div class="font-mono text-zinc-400">ASSIGNED ARCHITECT</div>
+                  <div class="text-gold font-semibold mt-1">Prathamesh S. Salunke</div>
+                </div>
+                <div class="p-3.5 rounded-xl bg-white/5 border border-white/10">
+                  <div class="font-mono text-zinc-400"> DEDICATED NODE</div>
+                  <div class="text-emerald-400 font-mono font-semibold mt-1">MUM-AWS-01 (99.99%)</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 3: AUTOMATION & ROI ENGINE -->
+        <div id="sandboxPanel-automation" class="hidden p-6 sm:p-8">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            <div class="lg:col-span-6 space-y-5">
+              <div class="font-mono text-xs text-kinetic uppercase tracking-wider">PYTHON + JAVA WORKFLOW SIMULATOR</div>
+              <h4 class="font-display text-2xl font-bold text-white">Calculate Your Enterprise Automation ROI</h4>
+              <p class="text-xs text-zinc-400 leading-relaxed">
+                Adjust the sliders below to simulate how a bespoke KINETIX ENGINE platform with automated lead qualification, instant quote generation, and CRM onboarding impacts your bottom line.
+              </p>
+
+              <div class="space-y-4 pt-2">
+                <div>
+                  <div class="flex justify-between text-xs font-mono mb-1.5">
+                    <span class="text-zinc-300">MONTHLY HIGH-INTENT INQUIRIES</span>
+                    <span id="roiLeadsVal" class="text-gold font-bold">120 Leads / mo</span>
+                  </div>
+                  <input type="range" id="roiLeadsSlider" min="20" max="500" value="120" oninput="calculateROI()" class="w-full cursor-pointer" />
+                </div>
+
+                <div>
+                  <div class="flex justify-between text-xs font-mono mb-1.5">
+                    <span class="text-zinc-300">AVERAGE CLIENT CONTRACT VALUE</span>
+                    <span id="roiDealVal" class="text-gold font-bold">₹85,000</span>
+                  </div>
+                  <input type="range" id="roiDealSlider" min="15000" max="500000" step="5000" value="85000" oninput="calculateROI()" class="w-full cursor-pointer" />
+                </div>
+
+                <div>
+                  <div class="flex justify-between text-xs font-mono mb-1.5">
+                    <span class="text-zinc-300">MANUAL ADMIN HOURS PER WEEK</span>
+                    <span id="roiHoursVal" class="text-kinetic font-bold">28 Hours / wk</span>
+                  </div>
+                  <input type="range" id="roiHoursSlider" min="5" max="80" value="28" oninput="calculateROI()" class="w-full cursor-pointer" />
+                </div>
+              </div>
+            </div>
+
+            <div class="lg:col-span-6 p-6 rounded-2xl bg-obsidian/90 border border-kinetic/30 space-y-5">
+              <div class="font-mono text-xs text-zinc-400 uppercase">PROJECTED ANNUAL IMPACT WITH KINETIX ENGINE</div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="p-4 rounded-xl bg-white/5 border border-white/10">
+                  <div class="font-mono text-[11px] text-zinc-400">EST. ADDITIONAL REVENUE (+22% CONV.)</div>
+                  <div id="roiRevenueOutput" class="font-display text-2xl sm:text-3xl font-bold text-gold mt-1">₹2,69,28,000</div>
+                  <div class="text-[11px] text-emerald-400 mt-1">Via 24/7 Interactive Configurator</div>
+                </div>
+                <div class="p-4 rounded-xl bg-white/5 border border-white/10">
+                  <div class="font-mono text-[11px] text-zinc-400">EXECUTIVE TIME RECLAIMED</div>
+                  <div id="roiHoursOutput" class="font-display text-2xl sm:text-3xl font-bold text-kinetic mt-1">1,164 Hours / yr</div>
+                  <div class="text-[11px] text-zinc-400 mt-1">Automated by Python CRM Daemons</div>
+                </div>
+              </div>
+              <div class="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-xs text-emerald-300 font-mono flex items-center justify-between">
+                <span>SYSTEM VERDICT: HIGH AUTOMATION LEVERAGE</span>
+                <a href="#configurator" class="underline font-bold text-white">BUILD THIS ENGINE →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRINCIPAL ARCHITECT SPOTLIGHT (PRATHAMESH SANJAY SALUNKE) -->
+    <section id="architect" class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-white/10">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+        <!-- Left Column: Identity Card -->
+        <div class="lg:col-span-5">
+          <div class="glass-panel rounded-3xl p-8 border border-gold/40 relative overflow-hidden">
+            <div class="absolute -top-24 -right-24 w-48 h-48 bg-gold/15 rounded-full blur-3xl pointer-events-none"></div>
+
+            <div class="flex items-center justify-between mb-6">
+              <span class="font-mono text-xs px-3 py-1 rounded-full bg-gold/20 text-gold border border-gold/40">
+                PRINCIPAL ARCHITECT
+              </span>
+              <span class="font-mono text-xs text-emerald-400">● VERIFIED CREDENTIALS</span>
+            </div>
+
+            <!-- Monogram Avatar -->
+            <div class="w-20 h-20 rounded-2xl bg-gradient-to-br from-gold via-gold-dark to-obsidian p-[1px] mb-6">
+              <div class="w-full h-full bg-obsidian rounded-2xl flex items-center justify-center font-display text-2xl font-bold text-gold tracking-wider">
+                PSS
+              </div>
+            </div>
+
+            <h3 class="font-display text-3xl font-bold text-white">Prathamesh Sanjay Salunke</h3>
+            <p class="font-mono text-xs text-gold uppercase tracking-widest mt-1 mb-4">
+              Founder &amp; Lead Full-Stack Systems Developer — KINETIX ENGINE
+            </p>
+            <p class="text-zinc-400 text-sm leading-relaxed mb-6">
+              Architecting high-reliability web platforms, bespoke CRM portals, and automated computational engines. Every system is personally engineered from the ground up to guarantee uncompromising security, speed, and executive polish.
+            </p>
+
+            <div class="grid grid-cols-2 gap-3 pt-4 border-t border-white/10 font-mono text-xs">
+              <div>
+                <div class="text-zinc-500">HEADQUARTERS</div>
+                <div class="text-white mt-0.5">Mumbai, India (Global Delivery)</div>
+              </div>
+              <div>
+                <div class="text-zinc-500">ARCHITECTURE MODEL</div>
+                <div class="text-gold mt-0.5">Founder-Led Engineering</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Technical Mastery Matrix (Java, Python, HTML, CSS) -->
+        <div class="lg:col-span-7 space-y-6">
+          <div class="font-mono text-xs uppercase tracking-[0.25em] text-gold">03 // ENGINEERING ARSENAL</div>
+          <h2 class="font-display text-3xl sm:text-4xl font-bold text-white tracking-tight">
+            Full-Spectrum Mastery Across <span class="text-gradient-gold">Frontend Luxury &amp; Backend Power</span>
+          </h2>
+          <p class="text-zinc-400 text-sm leading-relaxed">
+            True digital luxury requires more than surface-level visuals. By combining enterprise-grade **Java** and **Python** backend engineering with bespoke **HTML5** and **CSS3** interface architecture, KINETIX ENGINE delivers unified systems that scale effortlessly.
+          </p>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+            <!-- Skill 1: JAVA -->
+            <div class="glass-panel rounded-2xl p-5 border-white/10 hover:border-gold/40 transition">
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-display font-bold text-lg text-white">JAVA</span>
+                <span class="font-mono text-xs text-gold">ENTERPRISE CORE // 96%</span>
+              </div>
+              <div class="w-full h-1.5 bg-white/10 rounded-full overflow-hidden mb-3">
+                <div class="h-full bg-gold rounded-full" style="width: 96%"></div>
+              </div>
+              <p class="text-xs text-zinc-400">
+                High-concurrency backend services, secure role-based authentication, multi-threaded transaction engines, and rock-solid enterprise APIs.
+              </p>
+            </div>
+
+            <!-- Skill 2: PYTHON -->
+            <div class="glass-panel rounded-2xl p-5 border-white/10 hover:border-kinetic/40 transition">
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-display font-bold text-lg text-white">PYTHON</span>
+                <span class="font-mono text-xs text-kinetic">AUTOMATION &amp; AI // 98%</span>
+              </div>
+              <div class="w-full h-1.5 bg-white/10 rounded-full overflow-hidden mb-3">
+                <div class="h-full bg-kinetic rounded-full" style="width: 98%"></div>
+              </div>
+              <p class="text-xs text-zinc-400">
+                Autonomous business engines, intelligent data pipelines, custom CRM backends, dynamic report generators, and predictive analytics tools.
+              </p>
+            </div>
+
+            <!-- Skill 3: HTML5 -->
+            <div class="glass-panel rounded-2xl p-5 border-white/10 hover:border-gold/40 transition">
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-display font-bold text-lg text-white">HTML5 ARCHITECTURE</span>
+                <span class="font-mono text-xs text-emerald-400">SEMANTIC DOM // 99%</span>
+              </div>
+              <div class="w-full h-1.5 bg-white/10 rounded-full overflow-hidden mb-3">
+                <div class="h-full bg-emerald-400 rounded-full" style="width: 99%"></div>
+              </div>
+              <p class="text-xs text-zinc-400">
+                Ultra-clean semantic structure engineered for instant crawlers, zero-latency DOM rendering, accessibility compliance, and interactive canvas integration.
+              </p>
+            </div>
+
+            <!-- Skill 4: CSS3 -->
+            <div class="glass-panel rounded-2xl p-5 border-white/10 hover:border-kinetic/40 transition">
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-display font-bold text-lg text-white">CSS3 DESIGN SYSTEMS</span>
+                <span class="font-mono text-xs text-gold">KINETIC UI // 99%</span>
+              </div>
+              <div class="w-full h-1.5 bg-white/10 rounded-full overflow-hidden mb-3">
+                <div class="h-full bg-gradient-to-r from-gold to-kinetic rounded-full" style="width: 99%"></div>
+              </div>
+              <p class="text-xs text-zinc-400">
+                Bespoke glassmorphic surfaces, fluid responsive grid architecture, hardware-accelerated keyframe choreography, and tactile micro-interactions.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LUXURY INVESTMENT TIERS -->
+    <section id="tiers" class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-white/10">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <div class="font-mono text-xs uppercase tracking-[0.25em] text-gold mb-3">04 // INVESTMENT ARCHITECTURE</div>
+        <h2 class="font-display text-3xl sm:text-5xl font-bold text-white tracking-tight mb-4">
+          Transparent Tiers for <span class="text-gradient-gold">Serious Enterprises</span>
+        </h2>
+        <p class="text-zinc-400 text-sm">
+          Select a structured turnkey commission below or assemble a custom module stack in our interactive configurator. Toggle between INR (₹) and USD ($) in the top bar.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
+        <!-- Tier 1 -->
+        <div class="glass-panel glass-panel-hover rounded-3xl p-8 flex flex-col justify-between border-white/10">
+          <div>
+            <div class="font-mono text-xs text-zinc-400 uppercase tracking-widest mb-2">TIER 01 // VELOCITY</div>
+            <h3 class="font-display text-2xl font-bold text-white mb-2">KINETIX CORE</h3>
+            <p class="text-xs text-zinc-400 mb-6">
+              For ambitious brands requiring a flagship luxury presence with high-converting interactive interfaces.
+            </p>
+            <div class="font-display text-4xl font-bold text-white mb-1" data-inr="₹75,000" data-usd="$1,450">₹75,000</div>
+            <div class="font-mono text-[11px] text-zinc-500 mb-6">ESTIMATED DELIVERY: 2–3 WEEKS</div>
+
+            <ul class="space-y-3 text-sm text-zinc-300 border-t border-white/10 pt-6">
+              <li class="flex items-start gap-2.5"><span class="text-gold">✦</span> Bespoke HTML5/CSS3 Flagship Interface (Up to 8 Views)</li>
+              <li class="flex items-start gap-2.5"><span class="text-gold">✦</span> Custom Interactive Service/Product Estimator</li>
+              <li class="flex items-start gap-2.5"><span class="text-gold">✦</span> Automated Lead Capture &amp; Instant Email/WhatsApp Dispatch</li>
+              <li class="flex items-start gap-2.5"><span class="text-gold">✦</span> Technical SEO Schema &amp; 99+ Performance Optimization</li>
+            </ul>
+          </div>
+          <button onclick="selectTierForBrief('KINETIX CORE', 75000)" class="mt-8 w-full py-3.5 rounded-xl bg-white/10 hover:bg-gold hover:text-obsidian text-white font-mono text-xs uppercase tracking-wider font-semibold transition">
+            Commission Kinetix Core →
+          </button>
+        </div>
+
+        <!-- Tier 2 (Featured) -->
+        <div class="glass-panel glass-panel-hover rounded-3xl p-8 flex flex-col justify-between border-2 border-gold relative shadow-2xl shadow-gold/10 lg:-translate-y-3">
+          <div class="absolute -top-3.5 right-6 px-3 py-1 rounded-full bg-gold text-obsidian font-mono text-[10px] font-bold uppercase tracking-wider">
+            MOST COMMISSIONED
+          </div>
+          <div>
+            <div class="font-mono text-xs text-gold uppercase tracking-widest mb-2">TIER 02 // ENTERPRISE</div>
+            <h3 class="font-display text-2xl font-bold text-white mb-2">KINETIX SOVEREIGN</h3>
+            <p class="text-xs text-zinc-400 mb-6">
+              Full-stack business operating system featuring Admin &amp; Customer login portals and Python/Java automation.
+            </p>
+            <div class="font-display text-4xl font-bold text-gradient-gold mb-1" data-inr="₹1,65,000" data-usd="$2,950">₹1,65,000</div>
+            <div class="font-mono text-[11px] text-zinc-500 mb-6">ESTIMATED DELIVERY: 4–5 WEEKS</div>
+
+            <ul class="space-y-3 text-sm text-zinc-200 border-t border-white/10 pt-6">
+              <li class="flex items-start gap-2.5"><span class="text-gold">✦</span> Everything in KINETIX CORE + Unlimited Custom Views</li>
+              <li class="flex items-start gap-2.5"><span class="text-gold">✦</span> <strong>Custom CRM &amp; Role-Based Login Portals</strong> (Admin + Client Vault)</li>
+              <li class="flex items-start gap-2.5"><span class="text-gold">✦</span> <strong>Python / Java Automated Backend Engine</strong> (Invoicing, Booking, Pipelines)</li>
+              <li class="flex items-start gap-2.5"><span class="text-gold">✦</span> Interactive Live Product / Pricing Configurator Engine</li>
+              <li class="flex items-start gap-2.5"><span class="text-gold">✦</span> Payment Gateway &amp; Third-Party Webhook Integrations</li>
+            </ul>
+          </div>
+          <button onclick="selectTierForBrief('KINETIX SOVEREIGN', 165000)" class="mt-8 w-full py-4 rounded-xl bg-gradient-to-r from-gold to-gold-light text-obsidian font-mono text-xs uppercase tracking-wider font-bold shadow-lg shadow-gold/25 hover:brightness-110 transition">
+            Commission Sovereign System →
+          </button>
+        </div>
+
+        <!-- Tier 3 -->
+        <div class="glass-panel glass-panel-hover rounded-3xl p-8 flex flex-col justify-between border-white/10">
+          <div>
+            <div class="font-mono text-xs text-kinetic uppercase tracking-widest mb-2">TIER 03 // MONOLITH</div>
+            <h3 class="font-display text-2xl font-bold text-white mb-2">KINETIX MONOLITH</h3>
+            <p class="text-xs text-zinc-400 mb-6">
+              Bespoke multi-tenant SaaS, custom ERP architecture, and dedicated engineering retainer for market leaders.
+            </p>
+            <div class="font-display text-4xl font-bold text-white mb-1" data-inr="₹3,20,000+" data-usd="$5,800+">₹3,20,000+</div>
+            <div class="font-mono text-[11px] text-zinc-500 mb-6">ESTIMATED DELIVERY: 6–8 WEEKS</div>
+
+            <ul class="space-y-3 text-sm text-zinc-300 border-t border-white/10 pt-6">
+              <li class="flex items-start gap-2.5"><span class="text-kinetic">✦</span> High-Concurrency Java &amp; Python Distributed Backend</li>
+              <li class="flex items-start gap-2.5"><span class="text-kinetic">✦</span> Multi-Branch / Multi-Role Enterprise CRM &amp; Analytics Suite</li>
+              <li class="flex items-start gap-2.5"><span class="text-kinetic">✦</span> Custom AI &amp; Predictive Data Processing Engines</li>
+              <li class="flex items-start gap-2.5"><span class="text-kinetic">✦</span> Dedicated Cloud Architecture + 90-Day Priority SLA</li>
+            </ul>
+          </div>
+          <button onclick="selectTierForBrief('KINETIX MONOLITH', 320000)" class="mt-8 w-full py-3.5 rounded-xl bg-white/10 hover:bg-kinetic hover:text-obsidian text-white font-mono text-xs uppercase tracking-wider font-semibold transition">
+            Commission Monolith →
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- BESPOKE ARCHITECTURE CONFIGURATOR & COMMISSION FORM -->
+    <section id="configurator" class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-white/10">
+      <div class="mb-12">
+        <div class="font-mono text-xs uppercase tracking-[0.25em] text-gold mb-3">05 // BESPOKE SYSTEM BUILDER</div>
+        <h2 class="font-display text-3xl sm:text-5xl font-bold text-white tracking-tight">
+          Configure Your <span class="text-gradient-gold">Custom Architecture</span>
+        </h2>
+        <p class="text-zinc-400 text-sm mt-2 max-w-2xl">
+          Select the exact engineering modules your business requires. Your configuration automatically calculates investment estimates and syncs directly into the **KINETIX ENGINE Studio CRM**.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <!-- Left: Interactive Module Checkboxes (7 cols) -->
+        <div class="lg:col-span-7 space-y-4">
+          <div class="font-mono text-xs text-zinc-400 uppercase mb-2">SELECT SYSTEM MODULES TO ENGINEER:</div>
+
+          <label class="glass-panel rounded-2xl p-5 flex items-start justify-between gap-4 cursor-pointer border border-white/10 hover:border-gold/50 transition">
+            <div class="flex items-start gap-3.5">
+              <input type="checkbox" class="cfg-module mt-1 w-4 h-4 accent-gold" data-name="Luxury HTML5/CSS3 Flagship Interface" data-price="45000" data-weeks="2" checked onchange="updateConfiguratorTotal()" />
+              <div>
+                <div class="font-display font-bold text-white">Luxury HTML5/CSS3 Flagship Interface</div>
+                <div class="text-xs text-zinc-400 mt-0.5">Obsidian glassmorphic UI, custom motion choreography &amp; responsive retina layouts.</div>
+              </div>
+            </div>
+            <span class="font-mono text-xs text-gold whitespace-nowrap">₹45,000</span>
+          </label>
+
+          <label class="glass-panel rounded-2xl p-5 flex items-start justify-between gap-4 cursor-pointer border border-white/10 hover:border-gold/50 transition">
+            <div class="flex items-start gap-3.5">
+              <input type="checkbox" class="cfg-module mt-1 w-4 h-4 accent-gold" data-name="Custom CRM & Admin/Customer Login Portals" data-price="65000" data-weeks="2" checked onchange="updateConfiguratorTotal()" />
+              <div>
+                <div class="font-display font-bold text-white">Custom CRM &amp; Dual Login Portals (Admin + Client Vault)</div>
+                <div class="text-xs text-zinc-400 mt-0.5">Role-based authentication, pipeline management, client milestone tracker &amp; invoice vault.</div>
+              </div>
+            </div>
+            <span class="font-mono text-xs text-gold whitespace-nowrap">₹65,000</span>
+          </label>
+
+          <label class="glass-panel rounded-2xl p-5 flex items-start justify-between gap-4 cursor-pointer border border-white/10 hover:border-gold/50 transition">
+            <div class="flex items-start gap-3.5">
+              <input type="checkbox" class="cfg-module mt-1 w-4 h-4 accent-gold" data-name="Python & Java Automated Business Engine" data-price="55000" data-weeks="2" onchange="updateConfiguratorTotal()" />
+              <div>
+                <div class="font-display font-bold text-white">Python &amp; Java Automated Business Engine</div>
+                <div class="text-xs text-zinc-400 mt-0.5">Custom backend algorithms, automated PDF proposals, cron workflows &amp; data processing.</div>
+              </div>
+            </div>
+            <span class="font-mono text-xs text-gold whitespace-nowrap">₹55,000</span>
+          </label>
+
+          <label class="glass-panel rounded-2xl p-5 flex items-start justify-between gap-4 cursor-pointer border border-white/10 hover:border-gold/50 transition">
+            <div class="flex items-start gap-3.5">
+              <input type="checkbox" class="cfg-module mt-1 w-4 h-4 accent-gold" data-name="Interactive Client Quote / Product Configurator" data-price="35000" data-weeks="1" onchange="updateConfiguratorTotal()" />
+              <div>
+                <div class="font-display font-bold text-white">Interactive Product / Pricing Configurator Engine</div>
+                <div class="text-xs text-zinc-400 mt-0.5">Real-time interactive calculator allowing your customers to build and price orders live.</div>
+              </div>
+            </div>
+            <span class="font-mono text-xs text-gold whitespace-nowrap">₹35,000</span>
+          </label>
+
+          <label class="glass-panel rounded-2xl p-5 flex items-start justify-between gap-4 cursor-pointer border border-white/10 hover:border-gold/50 transition">
+            <div class="flex items-start gap-3.5">
+              <input type="checkbox" class="cfg-module mt-1 w-4 h-4 accent-gold" data-name="Payment Gateway & Enterprise API Webhooks" data-price="25000" data-weeks="1" onchange="updateConfiguratorTotal()" />
+              <div>
+                <div class="font-display font-bold text-white">Global Payment Gateways &amp; API Integrations</div>
+                <div class="text-xs text-zinc-400 mt-0.5">Razorpay, Stripe, WhatsApp Business API, and automated accounting webhooks.</div>
+              </div>
+            </div>
+            <span class="font-mono text-xs text-gold whitespace-nowrap">₹25,000</span>
+          </label>
+        </div>
+
+        <!-- Right: Live Estimate & Commission Dispatch Form (5 cols) -->
+        <div class="lg:col-span-5">
+          <div class="glass-panel rounded-3xl p-8 border border-gold/40 sticky top-28 space-y-6">
+            <div class="flex items-center justify-between border-b border-white/10 pb-4">
+              <div>
+                <div class="font-mono text-[11px] text-zinc-400">ESTIMATED SYSTEM INVESTMENT</div>
+                <div id="cfgTotalPrice" class="font-display text-4xl font-bold text-gold mt-1">₹1,10,000</div>
+              </div>
+              <div class="text-right">
+                <div class="font-mono text-[11px] text-zinc-400">TIMELINE</div>
+                <div id="cfgTotalWeeks" class="font-mono text-sm font-bold text-kinetic mt-1">~4 WEEKS</div>
+              </div>
+            </div>
+
+            <form id="commissionForm" onsubmit="submitCommission(event)" class="space-y-4">
+              <div>
+                <label class="block font-mono text-[11px] text-zinc-400 mb-1">EXECUTIVE / FOUNDER NAME *</label>
+                <input type="text" id="clientNameInput" required placeholder="e.g., Vikramaditya Singhania" class="w-full px-4 py-3 rounded-xl bg-obsidian/90 border border-white/15 text-sm text-white focus:outline-none focus:border-gold" />
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label class="block font-mono text-[11px] text-zinc-400 mb-1">COMPANY / BRAND *</label>
+                  <input type="text" id="clientCompanyInput" required placeholder="e.g., Obsidian Capital" class="w-full px-4 py-3 rounded-xl bg-obsidian/90 border border-white/15 text-sm text-white focus:outline-none focus:border-gold" />
+                </div>
+                <div>
+                  <label class="block font-mono text-[11px] text-zinc-400 mb-1">DIRECT EMAIL / PHONE *</label>
+                  <input type="text" id="clientContactInput" required placeholder="vikram@company.com" class="w-full px-4 py-3 rounded-xl bg-obsidian/90 border border-white/15 text-sm text-white focus:outline-none focus:border-gold" />
+                </div>
+              </div>
+
+              <div>
+                <label class="block font-mono text-[11px] text-zinc-400 mb-1">PROJECT ARCHITECTURAL BRIEF</label>
+                <textarea id="clientBriefInput" rows="3" placeholder="Describe your custom functions, CRM workflows, or target launch date..." class="w-full px-4 py-3 rounded-xl bg-obsidian/90 border border-white/15 text-sm text-white focus:outline-none focus:border-gold"></textarea>
+              </div>
+
+              <button type="submit" class="w-full py-4 rounded-xl bg-gradient-to-r from-gold via-gold-light to-gold text-obsidian font-display font-bold text-xs uppercase tracking-widest shadow-xl shadow-gold/20 hover:brightness-110 transition">
+                Transmit Commission to Studio CRM →
+              </button>
+              <div id="commissionSuccessToast" class="hidden p-3.5 rounded-xl bg-emerald-500/15 border border-emerald-500/40 text-emerald-300 font-mono text-xs text-center">
+                ✓ COMMISSION LOGGED IN STUDIO CRM. OPENING CONSOLE...
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-white/10 bg-obsidian py-16 px-4 sm:px-6 lg:px-8 relative z-10">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-8">
+      <div>
+        <div class="font-display font-bold text-xl tracking-[0.18em] text-white flex items-center gap-2">
+          KINETIX <span class="text-gold font-mono">//</span> ENGINE
+        </div>
+        <p class="text-xs text-zinc-400 mt-2 max-w-sm">
+          Engineered by <span class="text-white font-medium">Prathamesh Sanjay Salunke</span>. Bespoke Web Platforms, Java &amp; Python Automation Engines, and Luxury CRM Portals.
+        </p>
+      </div>
+      <div class="flex flex-wrap gap-6 font-mono text-xs text-zinc-400">
+        <a href="#capabilities" class="hover:text-gold transition">CAPABILITIES</a>
+        <a href="#sandbox" class="hover:text-gold transition">SANDBOX</a>
+        <a href="#architect" class="hover:text-gold transition">ARCHITECT</a>
+        <button onclick="openStudioCRM()" class="text-gold hover:underline">MANAGE BUSINESS (CRM)</button>
+      </div>
+    </div>
+    <div class="max-w-7xl mx-auto mt-10 pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between text-xs font-mono text-zinc-500 gap-4">
+      <div>© <span id="footerYear"></span> KINETIX ENGINE. ALL RIGHTS RESERVED.</div>
+      <div>STACK: JAVA • PYTHON • HTML5 • CSS3 // ARCHITECT: P. S. SALUNKE</div>
     </div>
   </footer>
 
-  <!-- ==========================================
-       10. CLEAN VANILLA JAVASCRIPT
-       ========================================== -->
-  <script>
-    // 1. Switch Interactive Sandbox Tabs
-    function switchTab(tabName, btnElement) {
-      document.querySelectorAll('.preview-content').forEach(el => el.classList.remove('active'));
-      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+  <!-- =================================================================== -->
+  <!-- BUILT-IN STUDIO CRM & BUSINESS MANAGEMENT MODAL (FOR PRATHAMESH)    -->
+  <!-- =================================================================== -->
+  <div id="studioCrmModal" class="fixed inset-0 z-50 hidden bg-obsidian/85 backdrop-blur-xl flex items-center justify-center p-4">
+    <div class="glass-panel border border-gold/40 rounded-3xl w-full max-w-6xl max-h-[90vh] flex flex-col overflow-hidden shadow-2xl">
+      <!-- Modal Header -->
+      <div class="px-6 py-5 bg-obsidian border-b border-white/10 flex items-center justify-between">
+        <div>
+          <div class="font-mono text-[11px] text-gold uppercase tracking-widest">KINETIX ENGINE // INTERNAL EXECUTIVE PORTAL</div>
+          <h3 class="font-display text-2xl font-bold text-white">Prathamesh Salunke — Studio CRM &amp; Pipeline Command</h3>
+        </div>
+        <div class="flex items-center gap-3">
+          <button onclick="exportCrmData()" class="px-3.5 py-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/15 font-mono text-xs text-zinc-300 transition">
+            Export JSON
+          </button>
+          <button onclick="closeStudioCRM()" class="w-10 h-10 rounded-xl bg-white/5 hover:bg-rose-500/20 border border-white/10 text-zinc-300 hover:text-rose-400 flex items-center justify-center font-mono text-lg transition">
+            ✕
+          </button>
+        </div>
+      </div>
 
-      document.getElementById('tab-' + tabName).classList.add('active');
-      btnElement.classList.add('active');
-    }
-
-    // 2. Pre-select Plan & Scroll to Form
-    function selectPlan(planTitle) {
-      const select = document.getElementById('selectedPlan');
-      select.value = planTitle;
-      document.getElementById('commission').scrollIntoView({ behavior: 'smooth' });
-    }
-
-    // 3. Manage Business Leads in LocalStorage (Built-In Admin CRM)
-    const STORAGE_KEY = 'salunke_studio_india_leads';
-
-    function getLeads() {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      if (!raw) {
-        // Default sample Indian lead so CRM never looks empty on first open
-        const sample = [{
-          name: "Vikramaditya Singhania",
-          business: "Singhania Luxe Estates",
-          phone: "+91 98201 11223",
-          city: "Mumbai, MH",
-          plan: "Business CRM & Portal Suite (₹64,999)",
-          notes: "Need custom property ROI calculator + VIP buyer login portal.",
-          date: "Sample Lead"
-        }];
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(sample));
-        return sample;
-      }
-      return JSON.parse(raw);
-    }
-
-    function submitLead(event) {
-      event.preventDefault();
-      const newLead = {
-        name: document.getElementById('clientName').value,
-        business: document.getElementById('businessName').value,
-        phone: document.getElementById('clientPhone').value,
-        city: document.getElementById('clientCity').value,
-        plan: document.getElementById('selectedPlan').value,
-        notes: document.getElementById('clientNotes').value || "Standard deployment requested.",
-        date: new Date().toLocaleDateString('en-IN')
-      };
-
-      const leads = getLeads();
-      leads.unshift(newLead);
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(leads));
-
-      event.target.reset();
-      renderLeads();
-      toggleCRM(); // Open CRM modal immediately to show the saved inquiry
-    }
-
-    function renderLeads() {
-      const leads = getLeads();
-      document.getElementById('leadCount').innerText = leads.length;
-      const container = document.getElementById('leadsContainer');
-
-      if (leads.length === 0) {
-        container.innerHTML = `<p style="color: var(--text-muted);">No inquiries yet. Submit the form on the page to test your CRM.</p>`;
-        return;
-      }
-
-      container.innerHTML = leads.map(lead => `
-        <div class="lead-item">
-          <div>
-            <strong style="font-size: 1.05rem; color: var(--gold-light);">${lead.business}</strong>
-            <span class="india-badge mono" style="margin-left: 8px;">${lead.city}</span>
-            <p style="font-size: 0.88rem; color: var(--text-main); margin-top: 4px;">
-              Client: ${lead.name} • Phone: <span class="mono">${lead.phone}</span>
-            </p>
-            <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 4px;">
-              Note: ${lead.notes}
-            </p>
+      <!-- Modal Body -->
+      <div class="p-6 overflow-y-auto space-y-6">
+        <!-- KPI Row -->
+        <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
+          <div class="p-4 rounded-2xl bg-obsidian/80 border border-white/10">
+            <div class="font-mono text-[11px] text-zinc-400">TOTAL PIPELINE VALUE</div>
+            <div id="crmModalTotalValue" class="font-display text-2xl font-bold text-gold mt-1">₹0</div>
           </div>
-          <div style="text-align: right;">
-            <span class="card-code mono">${lead.plan}</span>
-            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">${lead.date}</div>
+          <div class="p-4 rounded-2xl bg-obsidian/80 border border-white/10">
+            <div class="font-mono text-[11px] text-zinc-400">ACTIVE COMMISSIONS</div>
+            <div id="crmModalDealCount" class="font-display text-2xl font-bold text-white mt-1">0</div>
+          </div>
+          <div class="p-4 rounded-2xl bg-obsidian/80 border border-white/10">
+            <div class="font-mono text-[11px] text-zinc-400">LEAD ARCHITECT</div>
+            <div class="font-display text-lg font-bold text-kinetic mt-1">P. S. Salunke</div>
+          </div>
+          <div class="p-4 rounded-2xl bg-obsidian/80 border border-white/10">
+            <div class="font-mono text-[11px] text-zinc-400">STORAGE ENGINE</div>
+            <div class="font-mono text-xs text-emerald-400 mt-2">● LOCALSTORAGE SYNCED</div>
           </div>
         </div>
-      `).join('');
+
+        <!-- Add Manual Deal Form -->
+        <form onsubmit="addManualCrmDeal(event)" class="p-4 rounded-2xl bg-white/5 border border-white/10 grid grid-cols-1 sm:grid-cols-5 gap-3 items-end">
+          <div>
+            <label class="block font-mono text-[10px] text-zinc-400 mb-1">CLIENT / BRAND</label>
+            <input type="text" id="newCrmClient" required placeholder="e.g., Zenith Motors" class="w-full px-3 py-2 rounded-lg bg-obsidian border border-white/15 text-xs text-white" />
+          </div>
+          <div>
+            <label class="block font-mono text-[10px] text-zinc-400 mb-1">CONTACT</label>
+            <input type="text" id="newCrmContact" required placeholder="ceo@zenith.com" class="w-full px-3 py-2 rounded-lg bg-obsidian border border-white/15 text-xs text-white" />
+          </div>
+          <div>
+            <label class="block font-mono text-[10px] text-zinc-400 mb-1">MODULES / TIER</label>
+            <input type="text" id="newCrmScope" required placeholder="Sovereign CRM + Python" class="w-full px-3 py-2 rounded-lg bg-obsidian border border-white/15 text-xs text-white" />
+          </div>
+          <div>
+            <label class="block font-mono text-[10px] text-zinc-400 mb-1">VALUE (INR ₹)</label>
+            <input type="number" id="newCrmValue" required placeholder="165000" class="w-full px-3 py-2 rounded-lg bg-obsidian border border-white/15 text-xs text-white" />
+          </div>
+          <button type="submit" class="py-2 px-4 rounded-lg bg-gold text-obsidian font-mono text-xs font-bold uppercase hover:brightness-110 transition">
+            + Add Commission
+          </button>
+        </form>
+
+        <!-- CRM Deals Table -->
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="border-b border-white/10 font-mono text-[11px] text-zinc-400 uppercase">
+                <th class="py-3 px-4">Client / Enterprise</th>
+                <th class="py-3 px-4">Contact</th>
+                <th class="py-3 px-4">Engineered Scope</th>
+                <th class="py-3 px-4">Value</th>
+                <th class="py-3 px-4">Stage (Click to Advance)</th>
+                <th class="py-3 px-4 text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="studioCrmTableBody" class="divide-y divide-white/5 text-sm">
+              <!-- Populated by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- APPLICATION JAVASCRIPT ENGINE -->
+  <script>
+    // --- 1. STATE & INITIAL CRM DATA ---
+    const STORAGE_KEY = 'kinetix_engine_crm_v1';
+    let currentCurrency = 'INR'; // 'INR' or 'USD'
+    const USD_RATE = 84;
+
+    const defaultDeals = [
+      {
+        id: 'KE-101',
+        client: 'Aurelia Fine Jewels',
+        contact: 'rohan@aureliajewels.in',
+        scope: 'KINETIX SOVEREIGN (Admin CRM + VIP Vault)',
+        value: 165000,
+        stage: 'IN ENGINEERING'
+      },
+      {
+        id: 'KE-102',
+        client: 'Vanguard Luxury Estates',
+        contact: 'director@vanguardestates.com',
+        scope: 'Custom 3D Configurator + Python Lead Engine',
+        value: 240000,
+        stage: 'DEPLOYED'
+      },
+      {
+        id: 'KE-103',
+        client: 'Apex MedTech Group',
+        contact: 'admin@apexmedtech.org',
+        scope: 'Java Multi-Role Patient & Doctor Portal',
+        value: 320000,
+        stage: 'DISCOVERY'
+      }
+    ];
+
+    let crmDeals = JSON.parse(localStorage.getItem(STORAGE_KEY)) || defaultDeals;
+
+    function saveDeals() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(crmDeals));
+      renderAllCrmViews();
     }
 
-    function toggleCRM() {
-      document.getElementById('crmModal').classList.toggle('open');
-      renderLeads();
+    function formatMoney(inrAmount) {
+      if (currentCurrency === 'INR') {
+        return '₹' + Number(inrAmount).toLocaleString('en-IN');
+      } else {
+        const usd = Math.round(inrAmount / USD_RATE);
+        return '$' + usd.toLocaleString('en-US');
+      }
     }
 
-    function clearLeads() {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify([]));
-      renderLeads();
+    // --- 2. CURRENCY SWITCHER ---
+    function toggleCurrency() {
+      currentCurrency = currentCurrency === 'INR' ? 'USD' : 'INR';
+      document.getElementById('activeCurrencyLabel').textContent =
+        currentCurrency === 'INR' ? 'INR (₹)' : 'USD ($)';
+
+      // Update Tier Cards
+      document.querySelectorAll('[data-inr]').forEach(el => {
+        el.textContent = currentCurrency === 'INR' ? el.getAttribute('data-inr') : el.getAttribute('data-usd');
+      });
+
+      updateConfiguratorTotal();
+      calculateROI();
+      renderAllCrmViews();
     }
 
-    // Initialize Lead Counter on Load
-    renderLeads();
+    // --- 3. SANDBOX TABS & INTERACTIVITY ---
+    function switchSandboxTab(tab) {
+      ['admin', 'client', 'automation'].forEach(t => {
+        const panel = document.getElementById(`sandboxPanel-${t}`);
+        const btn = document.getElementById(`tabBtn-${t}`);
+        if (t === tab) {
+          panel.classList.remove('hidden');
+          btn.className = 'px-4 py-2.5 rounded-xl font-mono text-xs uppercase tracking-wider bg-gold text-obsidian font-bold transition';
+        } else {
+          panel.classList.add('hidden');
+          btn.className = 'px-4 py-2.5 rounded-xl font-mono text-xs uppercase tracking-wider text-zinc-400 hover:text-white transition';
+        }
+      });
+
+      const urls = {
+        admin: 'https://portal.kinetix-engine.io/admin-command-center',
+        client: 'https://portal.kinetix-engine.io/vip-client-vault',
+        automation: 'https://portal.kinetix-engine.io/python-java-roi-engine'
+      };
+      document.getElementById('sandboxUrlBar').textContent = urls[tab];
+    }
+
+    const vipPresets = [
+      {
+        name: 'Aurelia Jewels Pvt. Ltd.',
+        tier: 'SOVEREIGN TIER',
+        progress: 82,
+        milestone: 'Java Payment Vault Audit'
+      },
+      {
+        name: 'Apex MedTech Hospitals',
+        tier: 'MONOLITH TIER',
+        progress: 64,
+        milestone: 'Python Patient Telemetry Sync'
+      },
+      {
+        name: 'Vanguard Estates',
+        tier: 'SOVEREIGN TIER',
+        progress: 95,
+        milestone: 'Final Retina UI Stress Test'
+      }
+    ];
+
+    function updateVipVaultView() {
+      const idx = document.getElementById('vipClientSelect').value;
+      const data = vipPresets[idx];
+      document.getElementById('vipClientName').textContent = data.name;
+      document.getElementById('vipClientBadge').textContent = data.tier;
+      document.getElementById('vipClientProgressText').textContent = `${data.progress}% COMPLETE`;
+      document.getElementById('vipClientProgressBar').style.width = `${data.progress}%`;
+      document.getElementById('vipClientMilestone').textContent = data.milestone;
+    }
+
+    function calculateROI() {
+      const leads = Number(document.getElementById('roiLeadsSlider').value);
+      const dealValue = Number(document.getElementById('roiDealSlider').value);
+      const hours = Number(document.getElementById('roiHoursSlider').value);
+
+      document.getElementById('roiLeadsVal').textContent = `${leads} Leads / mo`;
+      document.getElementById('roiDealVal').textContent = formatMoney(dealValue);
+      document.getElementById('roiHoursVal').textContent = `${hours} Hours / wk`;
+
+      // Assume 2.2% additional closed conversion across 12 months via instant configurator + automated follow-up
+      const annualExtraRevenue = Math.round(leads * 0.22 * dealValue * 12);
+      const annualSavedHours = Math.round(hours * 0.8 * 52);
+
+      document.getElementById('roiRevenueOutput').textContent = formatMoney(annualExtraRevenue);
+      document.getElementById('roiHoursOutput').textContent = `${annualSavedHours.toLocaleString()} Hours / yr`;
+    }
+
+    // --- 4. BESPOKE CONFIGURATOR ---
+    function updateConfiguratorTotal() {
+      const checkboxes = document.querySelectorAll('.cfg-module:checked');
+      let totalInr = 0;
+      let totalWeeks = 1;
+
+      checkboxes.forEach(cb => {
+        totalInr += Number(cb.getAttribute('data-price'));
+        totalWeeks += Number(cb.getAttribute('data-weeks'));
+      });
+
+      document.getElementById('cfgTotalPrice').textContent = formatMoney(totalInr);
+      document.getElementById('cfgTotalWeeks').textContent = `~${totalWeeks} WEEKS`;
+      return { totalInr, totalWeeks };
+    }
+
+    function selectTierForBrief(tierName, priceInr) {
+      document.getElementById('clientBriefInput').value = `Interested in commissioning ${tierName} (${formatMoney(priceInr)}). Please schedule an architectural discovery call.`;
+      document.getElementById('configurator').scrollIntoView({ behavior: 'smooth' });
+      document.getElementById('clientNameInput').focus();
+    }
+
+    function submitCommission(e) {
+      e.preventDefault();
+      const name = document.getElementById('clientNameInput').value.trim();
+      const company = document.getElementById('clientCompanyInput').value.trim();
+      const contact = document.getElementById('clientContactInput').value.trim();
+      const brief = document.getElementById('clientBriefInput').value.trim();
+
+      const selectedModules = Array.from(document.querySelectorAll('.cfg-module:checked')).map(cb =>
+        cb.getAttribute('data-name')
+      );
+      const { totalInr } = updateConfiguratorTotal();
+
+      const scopeSummary =
+        selectedModules.length > 0
+          ? selectedModules.slice(0, 2).join(' + ') + (selectedModules.length > 2 ? ` (+${selectedModules.length - 2} more)` : '')
+          : brief || 'Custom Architecture Inquiry';
+
+      crmDeals.unshift({
+        id: 'KE-' + Math.floor(100 + Math.random() * 900),
+        client: `${company} (${name})`,
+        contact: contact,
+        scope: scopeSummary,
+        value: totalInr || 75000,
+        stage: 'NEW COMMISSION'
+      });
+
+      saveDeals();
+      document.getElementById('commissionForm').reset();
+      updateConfiguratorTotal();
+
+      const toast = document.getElementById('commissionSuccessToast');
+      toast.classList.remove('hidden');
+      setTimeout(() => {
+        toast.classList.add('hidden');
+        openStudioCRM();
+      }, 1100);
+    }
+
+    // --- 5. STUDIO CRM RENDERING & MANAGEMENT ---
+    const stages = ['NEW COMMISSION', 'DISCOVERY', 'IN ENGINEERING', 'DEPLOYED'];
+
+    function getStageBadgeClass(stage) {
+      switch (stage) {
+        case 'DEPLOYED':
+          return 'bg-emerald-500/20 text-emerald-400 border-emerald-500/40';
+        case 'IN ENGINEERING':
+          return 'bg-kinetic/20 text-kinetic border-kinetic/40';
+        case 'DISCOVERY':
+          return 'bg-gold/20 text-gold border-gold/40';
+        default:
+          return 'bg-purple-500/20 text-purple-300 border-purple-500/40';
+      }
+    }
+
+    function cycleDealStage(index) {
+      const current = crmDeals[index].stage;
+      const nextIndex = (stages.indexOf(current) + 1) % stages.length;
+      crmDeals[index].stage = stages[nextIndex];
+      saveDeals();
+    }
+
+    function deleteDeal(index) {
+      crmDeals.splice(index, 1);
+      saveDeals();
+    }
+
+    function addManualCrmDeal(e) {
+      e.preventDefault();
+      const client = document.getElementById('newCrmClient').value.trim();
+      const contact = document.getElementById('newCrmContact').value.trim();
+      const scope = document.getElementById('newCrmScope').value.trim();
+      const value = Number(document.getElementById('newCrmValue').value);
+
+      crmDeals.unshift({
+        id: 'KE-' + Math.floor(100 + Math.random() * 900),
+        client,
+        contact,
+        scope,
+        value,
+        stage: 'DISCOVERY'
+      });
+
+      e.target.reset();
+      saveDeals();
+    }
+
+    function renderAllCrmViews() {
+      const totalPipeline = crmDeals.reduce((acc, d) => acc + Number(d.value), 0);
+
+      // Update Header Badge
+      document.getElementById('crmBadgeCount').textContent = crmDeals.length;
+
+      // Update Sandbox Admin Table
+      document.getElementById('sandboxAdminTotal').textContent = formatMoney(totalPipeline);
+      const sandboxBody = document.getElementById('sandboxAdminTableBody');
+      sandboxBody.innerHTML = crmDeals
+        .slice(0, 5)
+        .map(
+          (d, idx) => `
+        <tr class="hover:bg-white/5 transition">
+          <td class="py-3.5 px-4 font-semibold text-white">${d.client}</td>
+          <td class="py-3.5 px-4 text-xs text-zinc-400">${d.scope}</td>
+          <td class="py-3.5 px-4 font-mono text-gold font-semibold">${formatMoney(d.value)}</td>
+          <td class="py-3.5 px-4">
+            <button onclick="cycleDealStage(${idx})" class="px-3 py-1 rounded-full border font-mono text-[11px] ${getStageBadgeClass(d.stage)} hover:scale-105 transition">
+              ${d.stage} ↻
+            </button>
+          </td>
+        </tr>
+      `
+        )
+        .join('');
+
+      // Update Full Studio CRM Modal
+      document.getElementById('crmModalTotalValue').textContent = formatMoney(totalPipeline);
+      document.getElementById('crmModalDealCount').textContent = crmDeals.length;
+
+      const modalBody = document.getElementById('studioCrmTableBody');
+      modalBody.innerHTML = crmDeals
+        .map(
+          (d, idx) => `
+        <tr class="hover:bg-white/5 transition">
+          <td class="py-3.5 px-4 font-semibold text-white">
+            <div>${d.client}</div>
+            <div class="font-mono text-[10px] text-zinc-500">${d.id}</div>
+          </td>
+          <td class="py-3.5 px-4 font-mono text-xs text-zinc-400">${d.contact}</td>
+          <td class="py-3.5 px-4 text-xs text-zinc-300">${d.scope}</td>
+          <td class="py-3.5 px-4 font-mono text-gold font-bold">${formatMoney(d.value)}</td>
+          <td class="py-3.5 px-4">
+            <button onclick="cycleDealStage(${idx})" class="px-3 py-1 rounded-full border font-mono text-[11px] ${getStageBadgeClass(d.stage)}">
+              ${d.stage} ↻
+            </button>
+          </td>
+          <td class="py-3.5 px-4 text-right">
+            <button onclick="deleteDeal(${idx})" class="text-xs font-mono text-zinc-500 hover:text-rose-400 transition">
+              DELETE
+            </button>
+          </td>
+        </tr>
+      `
+        )
+        .join('');
+    }
+
+    function openStudioCRM() {
+      document.getElementById('studioCrmModal').classList.remove('hidden');
+      renderAllCrmViews();
+    }
+
+    function closeStudioCRM() {
+      document.getElementById('studioCrmModal').classList.add('hidden');
+    }
+
+    function exportCrmData() {
+      const dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(crmDeals, null, 2));
+      const dlAnchor = document.createElement('a');
+      dlAnchor.setAttribute('href', dataStr);
+      dlAnchor.setAttribute('download', 'kinetix_engine_crm_pipeline.json');
+      document.body.appendChild(dlAnchor);
+      dlAnchor.click();
+      dlAnchor.remove();
+    }
+
+    // --- 6. LIVE TELEMETRY CLOCK & INIT ---
+    function updateClock() {
+      const now = new Date();
+      document.getElementById('liveClock').textContent =
+        now.toISOString().replace('T', ' ').substring(0, 19) + ' UTC';
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    document.getElementById('footerYear').textContent = new Date().getFullYear();
+    updateConfiguratorTotal();
+    calculateROI();
+    renderAllCrmViews();
   </script>
 </body>
 </html>
