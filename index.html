@@ -124,7 +124,7 @@
       <div class="flex items-center space-x-3">
         <span class="inline-flex items-center gap-1.5 text-emerald-400">
           <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-          SYS.ONLINE // CORE v4.8
+          SYS.ONLINE <span class="hidden sm:inline">// CORE v4.8</span>
         </span>
         <span class="hidden sm:inline text-zinc-600">|</span>
         <span class="hidden sm:inline">LATENCY: 0.4ms</span>
@@ -136,28 +136,29 @@
           <span>CURRENCY:</span>
           <span id="activeCurrencyLabel" class="text-gold font-semibold">INR (₹)</span>
         </button>
-        <span class="text-zinc-600">|</span>
-        <span id="liveClock" class="text-zinc-400">00:00:00 UTC</span>
+        <span class="text-zinc-600 hidden sm:inline">|</span>
+        <span id="liveClock" class="text-zinc-400 hidden sm:inline">00:00:00 UTC</span>
       </div>
     </div>
   </div>
 
-   <!-- Sticky Navigation Header -->
+  <!-- Sticky Navigation Header -->
   <header class="sticky top-0 z-40 glass-panel border-t-0 border-x-0 border-b border-white/10">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
       
       <!-- Brand Identity -->
-      <a href="#" class="flex items-center gap-3.5 group">
-        <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-gold/30 via-surface to-obsidian border border-gold/40 flex items-center justify-center shadow-lg shadow-gold/5 group-hover:border-gold transition">
-          <svg class="w-6 h-6 text-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <a href="#" class="flex items-center gap-2.5 sm:gap-3.5 group">
+        <div class="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-br from-gold/30 via-surface to-obsidian border border-gold/40 flex items-center justify-center shadow-lg shadow-gold/5 group-hover:border-gold transition shrink-0">
+          <svg class="w-5 h-5 sm:w-6 sm:h-6 text-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/>
           </svg>
         </div>
         <div>
-          <div class="font-display font-bold text-lg tracking-[0.18em] text-white flex items-center gap-1.5">
-            KINETIX <span class="text-gold font-mono text-sm">//</span> ENGINE
+          <div class="font-display font-bold text-base sm:text-lg tracking-[0.18em] text-white flex items-center gap-1.5">
+            KINETIX <span class="text-gold font-mono text-xs sm:text-sm">//</span> ENGINE
           </div>
-          <div class="font-mono text-[10px] tracking-[0.22em] text-zinc-400 uppercase">
+          <!-- Hidden on mobile to save space -->
+          <div class="font-mono text-[10px] tracking-[0.22em] text-zinc-400 uppercase hidden sm:block">
             Bespoke Digital Systems
           </div>
         </div>
@@ -200,10 +201,10 @@
       </nav>
 
       <!-- Action Buttons & Mobile Menu Toggle -->
-      <div class="flex items-center gap-2 sm:gap-3">
-        <!-- CRM Button (Shortened text on mobile so it fits) -->
-        <button onclick="openStudioCRM()" class="relative px-3 sm:px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/15 text-xs font-mono uppercase tracking-wider text-zinc-200 flex items-center gap-2 transition">
-          <span class="w-2 h-2 rounded-full bg-gold"></span>
+      <div class="flex items-center gap-1.5 sm:gap-3 shrink-0">
+        <!-- CRM Button -->
+        <button onclick="openStudioCRM()" class="relative px-2.5 sm:px-4 py-2 sm:py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/15 text-xs font-mono uppercase tracking-wider text-zinc-200 flex items-center gap-1.5 transition">
+          <span class="w-2 h-2 rounded-full bg-gold shrink-0"></span>
           <span class="hidden sm:inline">Studio CRM</span>
           <span class="sm:hidden">CRM</span>
           <span id="crmBadgeCount" class="px-1.5 py-0.5 text-[10px] rounded bg-gold text-obsidian font-bold">3</span>
@@ -216,7 +217,7 @@
         </a>
 
         <!-- THE HAMBURGER BUTTON -->
-        <button onclick="toggleMobileMenu()" class="inline-flex lg:hidden p-2 rounded-xl bg-white/10 border border-white/20 text-white hover:bg-white/20 transition ml-1">
+        <button onclick="toggleMobileMenu()" class="inline-flex lg:hidden p-1.5 sm:p-2 rounded-xl bg-white/10 border border-white/20 text-white hover:bg-white/20 transition">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
           </svg>
@@ -227,7 +228,7 @@
   </header>
 
   <!-- MOBILE NAVIGATION OVERLAY -->
-  <div id="mobileNav" class="hidden lg:hidden fixed top-[117px] left-0 w-full h-[calc(100vh-117px)] bg-obsidian/95 backdrop-blur-2xl border-t border-white/10 z-40 flex flex-col px-6 py-8 overflow-y-auto">
+  <div id="mobileNav" class="hidden lg:hidden fixed top-[116px] left-0 w-full h-[calc(100vh-116px)] bg-obsidian/95 backdrop-blur-2xl border-t border-white/10 z-40 flex flex-col px-6 py-8 overflow-y-auto">
       
       <a href="#architect" onclick="toggleMobileMenu()" class="font-display text-xl font-bold text-white tracking-wide mb-6">About Us</a>
       <a href="#capabilities" onclick="toggleMobileMenu()" class="font-display text-xl font-bold text-white tracking-wide mb-8">Capabilities</a>
@@ -247,13 +248,6 @@
           </a>
       </div>
       
-      <div class="pt-6 border-t border-white/10 flex flex-col space-y-6 pb-20">
-          <a href="#sandbox" onclick="toggleMobileMenu()" class="font-display text-xl font-bold text-white tracking-wide">System Sandbox</a>
-          <a href="#tiers" onclick="toggleMobileMenu()" class="font-display text-xl font-bold text-white tracking-wide">Investment Tiers</a>
-      </div>
-  </div>
-      
-      <!-- Footer Links -->
       <div class="pt-6 border-t border-white/10 flex flex-col space-y-6 pb-20">
           <a href="#sandbox" onclick="toggleMobileMenu()" class="font-display text-xl font-bold text-white tracking-wide">System Sandbox</a>
           <a href="#tiers" onclick="toggleMobileMenu()" class="font-display text-xl font-bold text-white tracking-wide">Investment Tiers</a>
